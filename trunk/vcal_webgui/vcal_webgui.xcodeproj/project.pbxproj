@@ -288,12 +288,14 @@
 		B8F94EAD1742D7CB00471FF0 /* fault_map.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = fault_map.js; sourceTree = "<group>"; };
 		B8F94EAE1742D7CB00471FF0 /* ui.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = ui.js; sourceTree = "<group>"; };
 		B8F94EAF1742F5FC00471FF0 /* event_detail.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = event_detail.html; sourceTree = "<group>"; };
+		B8FAC525174FFB54005A2D47 /* create_caches.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = create_caches.py; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
 		B816CBF817419F64002B7133 = {
 			isa = PBXGroup;
 			children = (
+				B8FAC525174FFB54005A2D47 /* create_caches.py */,
 				B82825A41742A6AB006A6096 /* vcal_py */,
 				B82824871742A1BC006A6096 /* design */,
 				B825CE011741A41D001C5235 /* vc_browser */,
