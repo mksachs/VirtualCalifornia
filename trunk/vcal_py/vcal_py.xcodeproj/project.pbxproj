@@ -1,0 +1,246 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXFileReference section */
+		B810D2E815093CC90077296D /* sandbox.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = sandbox.py; sourceTree = "<group>"; };
+		B822265814C7972600BEB2FF /* vcal_py.pth */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = vcal_py.pth; sourceTree = "<group>"; };
+		B8222F0814CF7458001F1EED /* AVSTools.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = AVSTools.py; path = old/AVSTools.py; sourceTree = "<group>"; };
+		B8222F0914CF7458001F1EED /* do_convert.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = do_convert.py; path = old/do_convert.py; sourceTree = "<group>"; };
+		B8222F0A14CF7458001F1EED /* Eqsim_old.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = Eqsim_old.py; path = old/Eqsim_old.py; sourceTree = "<group>"; };
+		B8222F0B14CF7458001F1EED /* Eqsim.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = Eqsim.py; path = old/Eqsim.py; sourceTree = "<group>"; };
+		B8222F0C14CF7458001F1EED /* EricMesh.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = EricMesh.py; path = old/EricMesh.py; sourceTree = "<group>"; };
+		B8222F0D14CF7458001F1EED /* exporteqsimevents.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = exporteqsimevents.py; path = old/exporteqsimevents.py; sourceTree = "<group>"; };
+		B8222F0E14CF7458001F1EED /* greens_mod.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = greens_mod.py; path = old/greens_mod.py; sourceTree = "<group>"; };
+		B8222F0F14CF7458001F1EED /* greensprint.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = greensprint.py; path = old/greensprint.py; sourceTree = "<group>"; };
+		B8222F1014CF7458001F1EED /* Mesh.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = Mesh.py; path = old/Mesh.py; sourceTree = "<group>"; };
+		B8222F1114CF7458001F1EED /* reindent.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = reindent.py; path = old/reindent.py; sourceTree = "<group>"; };
+		B8222F1214CF7458001F1EED /* VC_old.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = VC_old.py; path = old/VC_old.py; sourceTree = "<group>"; };
+		B8222F1314CF7458001F1EED /* vcgeo_old.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = vcgeo_old.py; path = old/vcgeo_old.py; sourceTree = "<group>"; };
+		B8222F1414CF7458001F1EED /* vcgeo.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = vcgeo.py; path = old/vcgeo.py; sourceTree = "<group>"; };
+		B823805415D40E310024FAF0 /* conversion_test.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = conversion_test.py; path = var_py/conversion_test.py; sourceTree = "<group>"; };
+		B823805515D40E310024FAF0 /* create_test_fault.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = create_test_fault.py; path = var_py/create_test_fault.py; sourceTree = "<group>"; };
+		B823805615D40E310024FAF0 /* event_loader_test.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = event_loader_test.py; path = var_py/event_loader_test.py; sourceTree = "<group>"; };
+		B823805715D40E310024FAF0 /* EvsPos.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = EvsPos.py; path = var_py/EvsPos.py; sourceTree = "<group>"; };
+		B823805815D40E310024FAF0 /* find_centroid.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = find_centroid.py; path = var_py/find_centroid.py; sourceTree = "<group>"; };
+		B823805915D40E310024FAF0 /* output_test.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = output_test.py; path = var_py/output_test.py; sourceTree = "<group>"; };
+		B823805A15D40E310024FAF0 /* pd_save_test.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = pd_save_test.py; path = var_py/pd_save_test.py; sourceTree = "<group>"; };
+		B823805B15D40E310024FAF0 /* pickle_vc.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = pickle_vc.py; path = var_py/pickle_vc.py; sourceTree = "<group>"; };
+		B823805C15D40E310024FAF0 /* read_profile.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = read_profile.py; path = var_py/read_profile.py; sourceTree = "<group>"; };
+		B823805D15D40E310024FAF0 /* sd_adjust.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = sd_adjust.py; path = var_py/sd_adjust.py; sourceTree = "<group>"; };
+		B823805E15D40E310024FAF0 /* thread_test.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = thread_test.py; path = var_py/thread_test.py; sourceTree = "<group>"; };
+		B88584B11423C41B003DC67F /* vcal_py_options_example.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = vcal_py_options_example.dat; sourceTree = "<group>"; };
+		B8948A121385A5A3008946E8 /* Converter.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = Converter.py; sourceTree = "<group>"; };
+		B8948A181385A5A4008946E8 /* MyVector.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = MyVector.py; sourceTree = "<group>"; };
+		B8948A1A1385A5A4008946E8 /* VC.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = VC.py; sourceTree = "<group>"; };
+		B8948A1D1385A6FF008946E8 /* vcal_py.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = vcal_py.py; sourceTree = "<group>"; };
+		B8A9FA25172883A1004122D6 /* eli_demo.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = eli_demo.py; sourceTree = "<group>"; };
+		B8AFFDD816CEC5A5008E4D03 /* Utils.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = Utils.py; sourceTree = "<group>"; };
+		B8B11F9914BFA11A00147EDC /* vcal_py_trace_file_example.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = vcal_py_trace_file_example.dat; sourceTree = "<group>"; };
+		B8C9FF4E1579372200AA3864 /* Chaos.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = Chaos.py; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		B8227AA4149A8049009ECEC0 /* old */ = {
+			isa = PBXGroup;
+			children = (
+				B8222F0814CF7458001F1EED /* AVSTools.py */,
+				B8222F0914CF7458001F1EED /* do_convert.py */,
+				B8222F0A14CF7458001F1EED /* Eqsim_old.py */,
+				B8222F0B14CF7458001F1EED /* Eqsim.py */,
+				B8222F0C14CF7458001F1EED /* EricMesh.py */,
+				B8222F0D14CF7458001F1EED /* exporteqsimevents.py */,
+				B8222F0E14CF7458001F1EED /* greens_mod.py */,
+				B8222F0F14CF7458001F1EED /* greensprint.py */,
+				B8222F1014CF7458001F1EED /* Mesh.py */,
+				B8222F1114CF7458001F1EED /* reindent.py */,
+				B8222F1214CF7458001F1EED /* VC_old.py */,
+				B8222F1314CF7458001F1EED /* vcgeo_old.py */,
+				B8222F1414CF7458001F1EED /* vcgeo.py */,
+			);
+			name = old;
+			sourceTree = "<group>";
+		};
+		B823805315D40D970024FAF0 /* var_py */ = {
+			isa = PBXGroup;
+			children = (
+				B823805415D40E310024FAF0 /* conversion_test.py */,
+				B823805515D40E310024FAF0 /* create_test_fault.py */,
+				B823805615D40E310024FAF0 /* event_loader_test.py */,
+				B823805715D40E310024FAF0 /* EvsPos.py */,
+				B823805815D40E310024FAF0 /* find_centroid.py */,
+				B823805915D40E310024FAF0 /* output_test.py */,
+				B823805A15D40E310024FAF0 /* pd_save_test.py */,
+				B823805B15D40E310024FAF0 /* pickle_vc.py */,
+				B823805C15D40E310024FAF0 /* read_profile.py */,
+				B823805D15D40E310024FAF0 /* sd_adjust.py */,
+				B823805E15D40E310024FAF0 /* thread_test.py */,
+			);
+			name = var_py;
+			sourceTree = "<group>";
+		};
+		B8948A021385A580008946E8 = {
+			isa = PBXGroup;
+			children = (
+				B8A9FA25172883A1004122D6 /* eli_demo.py */,
+				B823805315D40D970024FAF0 /* var_py */,
+				B810D2E815093CC90077296D /* sandbox.py */,
+				B8227AA4149A8049009ECEC0 /* old */,
+				B88584B11423C41B003DC67F /* vcal_py_options_example.dat */,
+				B8B11F9914BFA11A00147EDC /* vcal_py_trace_file_example.dat */,
+				B8948A1D1385A6FF008946E8 /* vcal_py.py */,
+				B822265814C7972600BEB2FF /* vcal_py.pth */,
+				B8948A0F1385A5A3008946E8 /* classes */,
+			);
+			sourceTree = "<group>";
+		};
+		B8948A0F1385A5A3008946E8 /* classes */ = {
+			isa = PBXGroup;
+			children = (
+				B8948A121385A5A3008946E8 /* Converter.py */,
+				B8948A181385A5A4008946E8 /* MyVector.py */,
+				B8948A1A1385A5A4008946E8 /* VC.py */,
+				B8C9FF4E1579372200AA3864 /* Chaos.py */,
+				B8AFFDD816CEC5A5008E4D03 /* Utils.py */,
+			);
+			path = classes;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXLegacyTarget section */
+		B8A0125013E8766000E2B0E7 /* vcal_py */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = B8A0125113E8766100E2B0E7 /* Build configuration list for PBXLegacyTarget "vcal_py" */;
+			buildPhases = (
+			);
+			buildToolPath = /opt/local/bin/python;
+			dependencies = (
+			);
+			name = vcal_py;
+			passBuildSettingsInEnvironment = 1;
+			productName = vcal_py;
+		};
+/* End PBXLegacyTarget section */
+
+/* Begin PBXProject section */
+		B8948A041385A580008946E8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0410;
+			};
+			buildConfigurationList = B8948A071385A580008946E8 /* Build configuration list for PBXProject "vcal_py" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = B8948A021385A580008946E8;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B8A0125013E8766000E2B0E7 /* vcal_py */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		B8948A051385A580008946E8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = Debug;
+		};
+		B8948A061385A580008946E8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+			};
+			name = Release;
+		};
+		B8A0125213E8766100E2B0E7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				DEBUGGING_SYMBOLS = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		B8A0125313E8766100E2B0E7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B8948A071385A580008946E8 /* Build configuration list for PBXProject "vcal_py" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B8948A051385A580008946E8 /* Debug */,
+				B8948A061385A580008946E8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B8A0125113E8766100E2B0E7 /* Build configuration list for PBXLegacyTarget "vcal_py" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B8A0125213E8766100E2B0E7 /* Debug */,
+				B8A0125313E8766100E2B0E7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B8948A041385A580008946E8 /* Project object */;
+}
