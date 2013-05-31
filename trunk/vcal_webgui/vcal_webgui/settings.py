@@ -12,7 +12,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '/Users/sachs/Documents/VirtualCalifornia/trunk/vcal_webgui/vcal_webgui.db',                      # Or path to database file if using sqlite3.
+        'NAME': '/home/sachs/Documents/VirtualCalifornia/trunk/vcal_webgui/vcal_webgui.db',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': '',
         'PASSWORD': '',
@@ -50,7 +50,7 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
-MEDIA_ROOT = '/Users/sachs/Documents/VirtualCalifornia/trunk/vcal_webgui/media/'
+MEDIA_ROOT = '/home/sachs/Documents/VirtualCalifornia/trunk/vcal_webgui/media/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -61,7 +61,7 @@ MEDIA_URL = '/media/'
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = ''
+STATIC_ROOT = '/home/sachs/Documents/VirtualCalifornia/trunk/vcal_webgui/static/'
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"

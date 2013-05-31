@@ -11,7 +11,7 @@ import os
 import cPickle
 import json
 
-site.addsitedir('')
+#site.addsitedir('')
 
 import VC
 
@@ -113,6 +113,7 @@ def event_detail(request):
 
 def fault_map(request):
     # right now we only have one model
+    
     model_list = VCModel.objects.all()
     
     #print model_list[0].fault_map_data()
@@ -199,6 +200,7 @@ def getVCSys(request):
     
     #del request.session['vc_sys']
     
+    '''
     try:
         vc_sys = request.session['vc_sys']
     except KeyError:
@@ -206,5 +208,6 @@ def getVCSys(request):
         request.session['vc_sys'] = VC.VCSys(model_list[0].system_name(), model_list[0].hdf5_output_file.path)
         #request.session['vc_sys'] = cPickle.load(open('%s%s.pkl'%(model_list[0].cache_path(),model_list[0].system_name()), 'rb'))
         vc_sys = request.session['vc_sys']
-    #vc_sys = VC.VCSys(model_list[0].system_name(), model_list[0].hdf5_output_file.path)
+    '''
+    vc_sys = VC.VCSys(model_list[0].system_name(), model_list[0].hdf5_output_file.path)
     return vc_sys

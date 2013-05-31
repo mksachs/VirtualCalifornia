@@ -266,24 +266,26 @@ var UIPopup = UIEle.$extend({
         if ( this.dom_jq.offset().left + this.active_popup_jq.outerWidth() >= $(window).width() ) {
             //the popup will appear off the right edge of the window
             //align the right edge of the popup with the right edge of the parent element
-            left = this.dom_jq.offset().left + this.dom_jq.outerWidth() - this.active_popup_jq.outerWidth();
+            p_left = this.dom_jq.offset().left + this.dom_jq.outerWidth() - this.active_popup_jq.outerWidth();
         } else {
             //position the popup normally
             ////align the left edge of the popup with the left edge of the parent element
-            left = this.dom_jq.offset().left;
+            p_left = this.dom_jq.offset().left;
         }
         
         if ( this.dom_jq.offset().top + this.dom_jq.outerHeight() + this.active_popup_jq.outerHeight() >= $(window).height() ) {
             //the popup will appear off the bottom of the screen
             //align the bottom of the popup with the bottom of the parent element
-            top = this.dom_jq.offset().top + this.dom_jq.outerHeight() - this.active_popup_jq.outerHeight();
+            p_top = this.dom_jq.offset().top + this.dom_jq.outerHeight() - this.active_popup_jq.outerHeight();
         } else {
             //position the popup normally
             //align the top of the popup with the bottom of the parent element
-            top = this.dom_jq.offset().top + this.dom_jq.outerHeight();
+            p_top = this.dom_jq.offset().top + this.dom_jq.outerHeight();
         }
         
-        this.active_popup_jq.offset({ top: top, left: left });
+        
+        
+        this.active_popup_jq.css({ "top": p_top, "left": p_left });
     }
 
 });
@@ -508,6 +510,18 @@ var UIModalDialog = UIEle.$extend({
             $this.form_elements.push( new UIText(this) );
         });
         
+        $(window).keyup({$this:this}, this.checkReturn);
+        
+    },
+    
+    checkReturn : function(event) {
+        $this = event.data.$this;
+        
+        if ( event.which == 13 ) {
+            if( $this.go_button.enabled ) {
+                $this.doGo({$this:$this});
+            }
+        }
     },
     
     activitySelected : function(params) {
@@ -625,6 +639,7 @@ var UIModalDialog = UIEle.$extend({
     },
     
     hideDialog : function() {
+        $(window).off("keyup");
         this.active_dialog.fadeOut(this.fade_duration);
         $this = this;
         this.overlay.fadeOut(this.fade_duration, function() {
