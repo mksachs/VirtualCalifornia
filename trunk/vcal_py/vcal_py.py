@@ -352,7 +352,8 @@ def main(argv=None):
             average_slip_rupture_length     is not False or \
             export_eqsim_events             is not False or \
             event_animation                 is not False or \
-            print_event_info                is not False:
+            print_event_info                is not False or \
+            slip_in_slip_out                is not False:
         do_event_actions = True
     
     
@@ -483,14 +484,14 @@ def main(argv=None):
     if event_fault_map is not None:
         vc_sys.plotFaultMap(evid=event_fault_map)
 
-    if slip_in_slip_out:
-        if start_year is not None and start_event == 0:
-            start_event = vc_sys.eventForYear(float(start_year))
-        
-        if end_year is not None and end_event is None:
-            end_event = vc_sys.eventForYear(float(end_year))
-
-        vc_sys.slipInSlipOut(start_event, end_event)
+    #if slip_in_slip_out:
+    #    if start_year is not None and start_event == 0:
+    #        start_event = vc_sys.eventForYear(float(start_year))
+    #
+    #    if end_year is not None and end_event is None:
+    #        end_event = vc_sys.eventForYear(float(end_year))
+    #
+    #    vc_sys.slipInSlipOut(start_event, end_event)
 
     if section_slip_map is not None:
         if start_year is not None and start_event == 0:
@@ -576,6 +577,9 @@ def main(argv=None):
         
         #### Print Event Info
         vc_sys.print_event_info                     = print_event_info
+
+        #### Slip In - Slip Out
+        vc_sys.slip_in_slip_out                     = slip_in_slip_out
 
         #cProfile.runctx('vc_sys.eventActions(data_file, start_event, end_event)', globals(), locals(), 'prof')
 

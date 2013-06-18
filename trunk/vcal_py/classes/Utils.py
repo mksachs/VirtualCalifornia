@@ -2,6 +2,7 @@
 
 import json
 import datetime
+import math
 
 class VCEncoder(json.JSONEncoder):
     def default(self, obj):
@@ -15,3 +16,6 @@ class VCEncoder(json.JSONEncoder):
         else:
             obj = super(VCEncoder, self).default(obj)
         return obj
+
+def magnitude(ave_slip, surface_area, mu = 3.0e10):
+    return 2.0/3.0 * math.log(1e7 * mu * ave_slip * surface_area, 10) - 10.7

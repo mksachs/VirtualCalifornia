@@ -1,7 +1,7 @@
 import site
 site.addsitedir('')
 import VC
-#import MyVector
+import Utils
 import Converter
 import os
 import cPickle
@@ -28,7 +28,65 @@ import subprocess
 #import shutil
 import profile
 
-''' create the webgui caches '''
+
+print Utils.magnitude(1.17, 7.05e8)
+
+''' Print the total slip of each event 
+data_file = '/Users/sachs/Documents/VirtualCaliforniaSVN/trunk/models/ALLCAL2_1-7-11_no-creep/run7/ALLCAL2_no-creep_dt-08_st-10.h5'
+sys_name = os.path.basename(data_file).split('.')[0]
+vc_sys = VC.VCSys(sys_name, data_file)
+
+start_event = vc_sys.eventForYear(10000.0)
+end_event = vc_sys.eventForYear(40000.0)
+
+f = h5py.File(vc_sys.data_file, 'r')
+events = f['event_table']
+sweeps = f['event_sweep_table']
+
+for event in events[start_event:end_event]:
+    slip = 0.0
+    ruptured_elements = {}
+    for sweep in sweeps[event[8]:event[9]]:
+        slip += sweep[3]
+        try:
+            tmp = ruptured_elements[sweep[2]]
+        except KeyError:
+            ruptured_elements[sweep[2]] = True
+
+    if len(ruptured_elements) > 10:
+        print event[0], slip, slip/float(len(ruptured_elements))
+
+f.close()
+'''
+
+''' Print the surface areas of all the sections 
+data_file = '/Users/sachs/Documents/VirtualCaliforniaSVN/trunk/models/ALLCAL2_1-7-11_no-creep/run7/ALLCAL2_no-creep_dt-08_st-10.h5'
+sys_name = os.path.basename(data_file).split('.')[0]
+vc_sys = VC.VCSys(sys_name, data_file)
+
+for sid, section in vc_sys.sections.iteritems():
+    print sid, section.sname, section.surface_area
+'''
+
+''' Given an event find the x year interval around it 
+data_file = '/Users/sachs/Documents/VirtualCaliforniaSVN/trunk/models/ALLCAL2_1-7-11_no-creep/run7/ALLCAL2_no-creep_dt-08_st-10.h5'
+sys_name = os.path.basename(data_file).split('.')[0]
+vc_sys = VC.VCSys(sys_name, data_file)
+
+target_evid = 487847
+interval = 500.0
+
+event_info = vc_sys.webgui_getEventDetail(target_evid)
+
+start_year = event_info['year'] - interval/2.0
+end_year = event_info['year'] + interval/2.0
+
+print start_year, end_year
+'''
+
+
+
+''' create the webgui caches 
 data_file = '/Users/sachs/Documents/VirtualCalifornia/trunk/vcal_webgui/media/vc_data/ALLCAL2_no-creep_dt-08_st-10.h5'
 sys_name = os.path.basename(data_file).split('.')[0]
 vc_sys = VC.VCSys(sys_name, data_file)
@@ -36,6 +94,7 @@ vc_sys = VC.VCSys(sys_name, data_file)
 #print vc_sys.eventForYear(10000)
 
 vc_sys.webgui_checkCaches()
+'''
 
 ''' webgui profiling 
 
@@ -47,7 +106,6 @@ def doThing():
 
 profile.run('doThing()')
 '''
-    
 
 ''' examine properties of outputted EQSim files
 # parse the eqsim file

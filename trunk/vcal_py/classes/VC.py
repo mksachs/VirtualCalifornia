@@ -20,6 +20,12 @@ import matplotlib.colors as mcolor
 import matplotlib.colorbar as mcolorbar
 import sys as py_sys
 import math
+import Converter
+import MyVector as vec
+import Queue
+from matplotlib import cm
+import quakelib
+import gc
 '''
 import matplotlib as mpl
 #mpl.use('agg')
@@ -1486,7 +1492,7 @@ class RuptureMapPlotter(object):
 
 class BasicPlotter(object):
     def __init__(self,sys):
-        self.output_format = 'pdf'
+        self.output_format = 'png'
         self.sys = sys
         self.event_count = 0
     
@@ -2081,6 +2087,67 @@ class AverageSlipRuptureLengthPlotter(BasicPlotter):
 
             plt.savefig(self.out_file, format=self.output_format, dpi=res)
 
+class SlipInSlipOutPlotter(BasicPlotter):
+    def __init__(self, sys):
+        print '    **** Initilizing Slip In Slip Out'
+        self.name = None
+        self.out_file = None
+        self.out_text_file = None
+        
+        self.slip_in = {}
+        self.slip_out = {}
+        self.duration = 0.0
+        #self.averages = []
+        super(SlipInSlipOutPlotter,self).__init__(sys)
+
+        self.calulateInputSlip()
+
+    def calulateInputSlip(self):
+    # get the slip rate from the elements. this is the input slip.
+        
+        print '        *** Getting input slip rate for all elements. ***'
+        slip_in = {}
+        
+        for eid, ele in self.sys.geometry.elements.iteritems():
+            if self.sys.section_filter is None or ele.sid in self.sys.section_filter:
+                try:
+                    slip = self.slip_in[ele.eid]
+                    print '!!! Duplicate element id %i !!!'%eid
+                    break
+                except KeyError:
+                    self.slip_in[ele.eid] = ele.slip
+
+    def addSlip(self, eid, slip):
+    # get the total slip from the elements. divide this by the length of the simulations and this is the output slip.
+        
+        if self.sys.section_filter is None or self.sys.geometry.elements[eid].sid in self.sys.section_filter:
+            try:
+                self.slip_out[eid] += slip
+            except KeyError:
+                self.slip_out[eid] = slip
+
+    def plot(self):
+        
+        # sort by the input slip
+        sorted_eids = sorted(self.slip_in, key=lambda k: self.slip_in[k])
+        
+        f = open(self.out_text_file,'w')
+        f.write('element slip_in slip_out\n')
+        
+        for eid in sorted_eids:
+            try:
+                i = float(self.slip_in[eid])
+                o = float(self.slip_out[eid])
+            except KeyError:
+                i = float(self.slip_in[eid])
+                o = 0.0
+            f.write('%i %g %g\n'%(eid, i, o/self.duration))
+        f.close()
+
+        
+        
+
+        
 
 class EqSimEventExporter(object):
     def __init__(self,sys):
@@ -2188,7 +2255,7 @@ class EqSimEventExporter(object):
                 if node1.depth < depth_lo:
                     depth_lo = node1.depth
                 
-                print curr_element.lame_mu
+                #print curr_element.lame_mu
                 
                 if event_data[3] >= self.min_slip_map_mag:
                     slip_map = quakelib.EQSimEventSlipMap()
@@ -2437,10 +2504,10 @@ class DisplacementGridProcessor(multiprocessing.Process):
                     it.iternext()
                 
                 self.counter.value += 1
-                sys.stdout.write('\r')
-                sys.stdout.flush()
-                sys.stdout.write('        %i of %i completed'%(self.counter.value, self.total_tasks))
-                sys.stdout.flush()
+                py_sys.stdout.write('\r')
+                py_sys.stdout.flush()
+                py_sys.stdout.write('        %i of %i completed'%(self.counter.value, self.total_tasks))
+                py_sys.stdout.flush()
             
             processed_displacements['dX'] = dX
             processed_displacements['dY'] = dY
@@ -2469,8 +2536,8 @@ class multiThreadStatusUpdater(object):
         self.num_processed += 1
         #sys.stdout.write('\r')
         #sys.stdout.flush()
-        sys.stdout.write('    %i of %i completed'%(self.num_processed, self.num_to_process))
-        sys.stdout.flush()
+        py_sys.stdout.write('    %i of %i completed'%(self.num_processed, self.num_to_process))
+        py_sys.stdout.flush()
 
 class VCSys(object):
     def __init__(self, sys_name, data_file):
@@ -2483,6 +2550,8 @@ class VCSys(object):
         self.root_dir = os.path.dirname(data_file)
         self.cache_dir = '%s/%s_cache'%(self.root_dir, self.name)
         self.image_dir = '%s/%s_images'%(self.root_dir, self.name)
+        self.dat_dir = '%s/%s_dat'%(self.root_dir, self.name)
+        self.eqsim_dir = '%s/%s_eqsim'%(self.root_dir, self.name)
         
         self.output_format = 'pdf'
         
@@ -2504,6 +2573,7 @@ class VCSys(object):
         self.shear_stress_drop_magnitude = False
         self.export_eqsim_events = False
         self.export_eqsim_events_min_slip_map_mag = 5.0
+        self.slip_in_slip_out = False
         #self.export_eqsim_geometry = False
         #self.trace_file = None
         self.export_eqsim_events = False
@@ -2575,6 +2645,18 @@ class VCSys(object):
         if self._geometry is None:
             self._geometry = cPickle.load(open('%s/geometry.pkl'%(self.cache_dir), 'rb'))
         return self._geometry
+    
+    @property
+    def sections(self):
+        if self._geometry is None:
+            self._geometry = cPickle.load(open('%s/geometry.pkl'%(self.cache_dir), 'rb'))
+        return self._geometry.sections
+
+    @property
+    def elements(self):
+        if self._geometry is None:
+            self._geometry = cPickle.load(open('%s/geometry.pkl'%(self.cache_dir), 'rb'))
+        return self._geometry.elements
     
     @property
     def layered_sections(self):
@@ -2724,6 +2806,14 @@ class VCSys(object):
         # create the image dir if needed. this is where all plots will go.
         if not os.path.exists(self.image_dir):
             os.makedirs(self.image_dir)
+    
+        # create the dat dir if needed. this is where all dat format exports will go.
+        if not os.path.exists(self.dat_dir):
+            os.makedirs(self.dat_dir)
+            
+        # create the eqsim dir if needed. this is where all eqsim format exports will go.
+        if not os.path.exists(self.eqsim_dir):
+            os.makedirs(self.eqsim_dir)
         
         # create the geometry cache. This contains the model and the layered sections.
         if not os.path.isfile('%s/geometry.pkl'%(self.cache_dir)):
@@ -2767,6 +2857,10 @@ class VCSys(object):
             directory = self.image_dir
         elif type == 'cache':
             directory = self.cache_dir
+        elif type == 'dat':
+            directory = self.dat_dir
+        elif type == 'eqsim':
+            directory = self.eqsim_dir
         else:
             directory = self.root_dir
         
@@ -3214,11 +3308,13 @@ class VCSys(object):
         return ret_string
     '''
 
-    def magsBySection(self, start_event, end_event, num_bins = 100):
+    def magsBySection(self, start_event, end_event, num_bins = 100, landscape=False):
         event_file = self.data_file
         print '*** Plotting the number of events at specific magnitudes by section ***'
         print '    Event file %s'%event_file
-    
+        
+        mags = self.events.mags
+        
         f = h5py.File(event_file, 'r')
         
         events = f['event_table']
@@ -3231,6 +3327,7 @@ class VCSys(object):
         else:
             end_event = events[-1][0]
         
+        '''
         if self.section_filter is None:
             file_name_prepend = '%s_%i-%i_'%(self.name,start_event,end_event)
         else:
@@ -3242,11 +3339,14 @@ class VCSys(object):
             else:
                 section_str = '%i--%i'%(self.section_filter[0],self.section_filter[-1])
             file_name_prepend = '%s_%s_%i-%i_'%(self.name,section_str,start_event,end_event)
+        '''
+        
+        file_name_prepend = self.fileNamePrepend()
         
     # prepare the plot data
-        mags = []
-        for event in events[start_event:end_event]:
-            mags.append(event[3])
+        #mags = []
+        #for event in events[start_event:end_event]:
+        #    mags.append(event[3])
         
         hist, mag_bins = np.histogram(mags, bins = num_bins)
 
@@ -3254,7 +3354,7 @@ class VCSys(object):
             section_ids = np.array(sorted(self.geometry.sections.keys()))
         else:
             section_ids = np.array(sorted(self.section_filter))
-
+        
         section_vs_mag = np.zeros( (mag_bins.size, len(section_ids)) )
         section_id_index_mapping = {}
         section_names = []
@@ -3262,9 +3362,18 @@ class VCSys(object):
         for i, sid in enumerate(section_ids):
             section_id_index_mapping[sid] = i
             section_names.append(self.geometry.sections[sid].sname)
-
-        for event in events[start_event:end_event]:
+    
+        print '    start event: %i, end event: %i'%(start_event, end_event)
+        print '    *** Analyzing events ***'
+        for event_num, event in enumerate(events[start_event:end_event]):
+            if ( event_num%5000 == 0 ):
+                py_sys.stdout.write('\r')
+                py_sys.stdout.flush()
+                py_sys.stdout.write('        event:%i of %i'%(event_num, end_event - start_event))
+                py_sys.stdout.flush()
+            
             involved_sections = {}
+            
             event_sweeps = sweeps[event[8]:event[9]]
             
             for sweep in event_sweeps:
@@ -3280,25 +3389,38 @@ class VCSys(object):
             for sid in involved_section_ids:
                 if self.section_filter is None or sid in self.section_filter:
                     section_vs_mag[mag_bin_num,section_id_index_mapping[sid]] += 1
-
+        
+        #print section_vs_mag
+        #if not landscape:
+        #    np.swapaxes(section_vs_mag,0,1)
+        #print section_vs_mag
+        print
+        print '    *** Plotting ***'
+        #for i in section_vs_mag.T:
+        #    print np.array_str(i, max_line_width=600)
     # plot parameters
-        imw = 1280.0 # the full image width
-        lm = 60.0
+        if landscape:
+            imw = 2642.0 # the full image width
+        else:
+            imh = 2642.0 # the full image height
+        lm = 150.0
         rm = 20.0
         tm = 20.0
-        bm = 40.0
-        res = 72.0
-        cbh = 10.0
-        cbs = 80.0
-        vss = 50.0 # vertical section spacing
+        bm = 100.0
+        res = 300.0
+        cbh = 25.0
+        cbs = 150.0
 
-        arial7 = mpl.font_manager.FontProperties(family='FreeSans', style='normal', variant='normal', size=7)
-        arial10 = mpl.font_manager.FontProperties(family='FreeSans', style='normal', variant='normal', size=10)
+        arial7 = mpl.font_manager.FontProperties(family='Arial', style='normal', variant='normal', size=4)
+        arial10 = mpl.font_manager.FontProperties(family='Arial', style='normal', variant='normal', size=6)
 
         cmap = cm.YlOrRd
     
     # do the plot
-        imh = imw * (float(len(mag_bins))/float(len(section_ids))) + cbh + cbs
+        if landscape:
+            imh = imw * (float(len(mag_bins))/float(len(section_ids))) + cbh + cbs
+        else:
+            imw = imh * (float(len(mag_bins))/float(len(section_ids))) + cbh + cbs
         imwi = imw/res
         imhi = imh/res
         fig = plt.figure(figsize=(imwi, imhi), dpi=res)
@@ -3311,20 +3433,38 @@ class VCSys(object):
         else:
             norm = mpl.colors.LogNorm(vmin=1, vmax=section_vs_mag.max())
 
-        fig_ax.pcolor(section_vs_mag, cmap=cmap, norm=norm )
+        if landscape:
+            fig_ax.pcolor(section_vs_mag, cmap=cmap, norm=norm )
+        else:
+            fig_ax.pcolor(section_vs_mag.T, cmap=cmap, norm=norm )
 
         fig_ax.axis('tight')
-        fig_ax.set_xticks(range(0, len(section_names)))
-        for i in range(0, len(section_names)):
-            fig_ax.axvline(x=float(i), lw=0.2, c='0.2')
-        fig_ax.set_xticklabels(section_names)
 
-        fig_ax.set_yticks(range(0, len(mag_bins)))
-        mag_bin_labels = []
-        for i in range(0, len(mag_bins)):
-            fig_ax.axhline(y=float(i)-0.1, lw=0.2, c='0.2')
-            mag_bin_labels.append('%f'%(mag_bins[i]))
-        fig_ax.set_yticklabels(mag_bin_labels)
+        #print len(section_names), section_vs_mag.T.shape
+        if landscape:
+            fig_ax.set_xticks(range(0, len(section_names)))
+            for i in range(0, len(section_names)):
+                fig_ax.axvline(x=float(i), lw=0.2, c='0.7')
+            fig_ax.set_xticklabels(section_names)
+
+            fig_ax.set_yticks(range(0, len(mag_bins)))
+            mag_bin_labels = []
+            for i in range(0, len(mag_bins)):
+                fig_ax.axhline(y=float(i)-0.1, lw=0.2, c='0.7')
+                mag_bin_labels.append('%f'%(mag_bins[i]))
+            fig_ax.set_yticklabels(mag_bin_labels)
+        else:
+            fig_ax.set_yticks(range(0, len(section_names)))
+            for i in range(0, len(section_names)):
+                fig_ax.axhline(y=float(i) - 0.05, lw=0.2, c='0.7')
+            fig_ax.set_yticklabels(section_names)
+
+            fig_ax.set_xticks(range(0, len(mag_bins)))
+            mag_bin_labels = []
+            for i in range(0, len(mag_bins)):
+                fig_ax.axvline(x=float(i), lw=0.2, c='0.7')
+                mag_bin_labels.append('%f'%(mag_bins[i]))
+            fig_ax.set_xticklabels(mag_bin_labels)
 
         for line in fig_ax.xaxis.get_ticklines() + fig_ax.yaxis.get_ticklines():
             line.set_alpha(0)
@@ -3335,8 +3475,15 @@ class VCSys(object):
             label.set_ha('left')
         for label in fig_ax.yaxis.get_ticklabels():
             label.set_fontproperties(arial7)
-        
-        fig_ax.set_ylabel('Magnitude', fontproperties=arial10)
+            label.set_va('bottom')
+
+        if landscape:
+            fig_ax.set_ylabel('Magnitude', fontproperties=arial10)
+        else:
+            fig_ax.set_xlabel('Magnitude', fontproperties=arial10)
+
+        for spine in fig_ax.spines.itervalues():
+            spine.set_lw(0.5)
 
     # plot the colorbar
         cb_ax = fig.add_axes((lm/imw, bm/imh, pw/imw, cbh/imh))
@@ -3349,7 +3496,12 @@ class VCSys(object):
 
         cb_ax.set_xlabel('Number of events', fontproperties=arial10)
 
-        fig.savefig('%s_Mag_By_Section.png'%(file_name_prepend), format='png')
+        cb.outline.set_lw(0.5)
+
+        #for spine in cb_ax.spines.itervalues():
+        #    spine.set_lw(0.5)
+
+        fig.savefig('%s%i_%i_mag_by_section.png'%(file_name_prepend, start_event, end_event), format='png', dpi=res)
 
         f.close()
     
@@ -3367,16 +3519,17 @@ class VCSys(object):
         imw = 1024.0 # the full image width
         lm = 40.0
         rm = 50.0
-        tm = 40.0
-        bm = 40.0
+        tm = 50.0
+        bm = 50.0
         res = 72.0
         cbh = 20.0
         cbs = 40.0
         vss = 50.0 # vertical section spacing
-
-        arial12 = mpl.font_manager.FontProperties(family='FreeSans', style='normal', variant='normal', size=12)
-        arial10 = mpl.font_manager.FontProperties(family='FreeSans', style='normal', variant='normal', size=10)
-        arial7_light = mpl.font_manager.FontProperties(family='FreeSans', style='normal', variant='normal', size=7, weight='light')
+        
+        arial14 = mpl.font_manager.FontProperties(family='Arial', style='normal', variant='normal', size=14)
+        arial12 = mpl.font_manager.FontProperties(family='Arial', style='normal', variant='normal', size=12)
+        arial10 = mpl.font_manager.FontProperties(family='Arial', style='normal', variant='normal', size=10)
+        arial7_light = mpl.font_manager.FontProperties(family='Arial', style='normal', variant='normal', size=7, weight='light')
         
         greens_normal = f['greens_normal']
         greens_shear = f['greens_shear']
@@ -3416,7 +3569,8 @@ class VCSys(object):
 
         shear_cmap = LinearSegmentedColormap('shear_cmap', shear_color_dict, N=256, gamma=1.0)
         normal_cmap = LinearSegmentedColormap('normal_cmap', normal_color_dict, N=256, gamma=1.0)
-
+    
+    # do the plot
         imh = imw/2.0 + cbh + cbs
         imwi = imw/res
         imhi = imh/res
@@ -3435,13 +3589,17 @@ class VCSys(object):
         shear_ax.axis('tight')
         normal_ax.axis('tight')
 
-        for label in shear_ax.xaxis.get_ticklabels() + shear_ax.yaxis.get_ticklabels() + normal_ax.xaxis.get_ticklabels() + normal_ax.yaxis.get_ticklabels():
-            label.set_fontproperties(arial12)
-
         for tick in shear_ax.xaxis.get_major_ticks() + normal_ax.xaxis.get_major_ticks():
             tick.label1On = False
             tick.label2On = True
-
+        
+        for label in shear_ax.xaxis.get_ticklabels() + shear_ax.yaxis.get_ticklabels() + normal_ax.xaxis.get_ticklabels() + normal_ax.yaxis.get_ticklabels():
+            label.set_fontproperties(arial12)
+        
+        shear_ax.set_title('Shear interactions', fontproperties=arial14, color='k', va='bottom', ha='left', position=(0,1.05))
+        normal_ax.set_title('Normal interactions', fontproperties=arial14, color='k', va='bottom', ha='left', position=(0,1.05))
+    
+    # create the color bars
         shear_cb_ax = fig.add_axes((lm/imw, bm/imh, pw/imw, cbh/imh))
         normal_cb_ax = fig.add_axes(((imw - pw - rm)/imw, bm/imh, pw/imw, cbh/imh))
 
@@ -3455,6 +3613,9 @@ class VCSys(object):
             label.set_fontproperties(arial10)
         for line in shear_cb_ax.xaxis.get_ticklines() + normal_cb_ax.xaxis.get_ticklines():
             line.set_alpha(0)
+        
+        shear_cb_ax.set_title('shear stress per unit slip [Pa/m]', fontproperties=arial10, color='k', va='top', ha='left', position=(0,-1.1))
+        normal_cb_ax.set_title('normal stress per unit slip [Pa/m]', fontproperties=arial10, color='k', va='top', ha='left', position=(0,-1.1))
 
     # mark what rows correspond to which sections
         for sid, section in self.geometry.sections.iteritems():
@@ -3474,12 +3635,14 @@ class VCSys(object):
         
 
     # output the results
+        file_name_prepend = self.fileNamePrepend(supress_sections=True)
+    
         if output_type == 'plot' or output_type == 'both':
-            fig.savefig('%s_Greens.png'%(self.name), format='png')
+            fig.savefig('%sgreens.png'%(file_name_prepend), format='png')
 
         if output_type == 'text' or output_type == 'both':
-            tfn = open('%s_Greens-normal.dat'%(self.name), 'w')
-            tfs = open('%s_Greens-shear.dat'%(self.name), 'w')
+            tfn = open('%sgreens-normal.dat'%(file_name_prepend), 'w')
+            tfs = open('%sgreens-shear.dat'%(file_name_prepend), 'w')
 
             for (x,y), val in np.ndenumerate(greens_normal_np):
                 tfn.write('%i %i %f\n'%(x,y,val))
@@ -3492,7 +3655,7 @@ class VCSys(object):
         f.close()
         print '*** Done ***'
     # done
-        
+    '''
     def slipInSlipOut(self, start_event, end_event):
         data_file = self.data_file
         print '*** Comparing input slip vs output slip ***'
@@ -3574,7 +3737,7 @@ class VCSys(object):
 
         f.close()
         print '*** Done ***'
-
+    '''
     def plotFaultMap(self, event_file=None, evid=None):
         print '*** Plotting fault map ***'
     
@@ -4408,8 +4571,8 @@ class VCSys(object):
         # create a queue to pass to workers to store the results
         result_queue = multiprocessing.Queue()
          
-        sys.stdout.write('        %i of %i completed'%(0, len(involved_elements)))
-        sys.stdout.flush()
+        py_sys.stdout.write('        %i of %i completed'%(0, len(involved_elements)))
+        py_sys.stdout.flush()
         # spawn workers
         for i in range(len(segmented_elements)):
             worker = DisplacementGridProcessor(self, work_queue, result_queue, Xs, Ys, counter, len(involved_elements))#, min_lat, min_lon, max_lat, max_lon)
@@ -5326,6 +5489,7 @@ class VCSys(object):
         num_grid_lines  = self.displacementMapConfig['num_grid_lines']
         
     # create filename prepend
+        '''
         if self.section_filter is None:
             file_name_prepend = '%s_%i_'%(self.name,evid)
         else:
@@ -5337,6 +5501,9 @@ class VCSys(object):
             else:
                 section_str = '%i--%i'%(self.section_filter[0],self.section_filter[-1])
             file_name_prepend = '%s_%s_%i_'%(self.name,section_str,evid)
+        '''
+        
+        file_name_prepend = self.fileNamePrepend()
         
     # figure out what elements are involved and find the total slip on each
         f = h5py.File(event_file, 'r')
@@ -5673,18 +5840,19 @@ class VCSys(object):
             label.set_color(cb_fontcolor)
         for line in cb_ax.xaxis.get_ticklines():
             line.set_alpha(0)
-
+        
+        file_name_prepend += '%i_'%evid
 
         if fringes:
-            file_name_prepend += 'Fringes-'
+            file_name_prepend += 'fringes-'
 
         #save the image
         if plot_area == 'event':
-            fig4.savefig('%sDisplacement-Map.png'%file_name_prepend, format='png', dpi=plot_resolution)
+            fig4.savefig('%sdisplacement-map.png'%file_name_prepend, format='png', dpi=plot_resolution)
         elif plot_area == 'full':
-            fig4.savefig('%sFull-Sys-Displacement-Map.png'%file_name_prepend, format='png', dpi=plot_resolution)
+            fig4.savefig('%sfull-sys-displacement-map.png'%file_name_prepend, format='png', dpi=plot_resolution)
         else:
-            fig4.savefig('%s%.2f-%.2f_%.2f-%.2f_Displacement-Map.png'%(file_name_prepend,plot_area[0].lat,plot_area[0].lon,plot_area[1].lat,plot_area[1].lon), format='png', dpi=plot_resolution)
+            fig4.savefig('%s%.2f-%.2f_%.2f-%.2f_displacement-map.png'%(file_name_prepend,plot_area[0].lat,plot_area[0].lon,plot_area[1].lat,plot_area[1].lon), format='png', dpi=plot_resolution)
 
         f.close()
 
@@ -5821,7 +5989,8 @@ class VCSys(object):
             end_event = events[-1][0]
         
         file_name_prepend = self.fileNamePrepend(event_range=[start_event, end_event])
-        file_name_prepend_dat = self.fileNamePrepend(event_range=[start_event, end_event], type=None)
+        file_name_prepend_dat = self.fileNamePrepend(event_range=[start_event, end_event], type='dat')
+        file_name_prepend_eqsim = self.fileNamePrepend(event_range=[start_event, end_event], type='eqsim')
         
         '''
         if self.section_filter is None:
@@ -5958,11 +6127,26 @@ class VCSys(object):
             if self.average_slip_rupture_length == 'both' or self.average_slip_rupture_length == 'text':
                 average_slip_rupture_length_plotter.out_text_file = '%saverage-slip-rupture-length.dat'%(file_name_prepend_dat)
         
+        if self.slip_in_slip_out is not False:
+            scan_events = True
+            slip_in_slip_out_plotter = SlipInSlipOutPlotter(self)
+            slip_in_slip_out_plotter.name            = self.name
+            if start_event == 0:
+                slip_in_slip_out_plotter.duration = self.geometry.converter.year_sec(events[end_event][1])
+            else:
+                slip_in_slip_out_plotter.duration = self.geometry.converter.year_sec(events[end_event][1] - events[start_event][1])
+
+            #if self.average_slip_rupture_length == 'both' or self.average_slip_rupture_length == 'plot':
+            #    average_slip_rupture_length_plotter.output_format   = self.output_format
+            #    average_slip_rupture_length_plotter.out_file        = '%saverage-slip-rupture-length.%s'%(file_name_prepend,self.output_format)
+            #if self.average_slip_rupture_length == 'both' or self.average_slip_rupture_length == 'text':
+            slip_in_slip_out_plotter.out_text_file = '%sslip_in_slip_out.dat'%(file_name_prepend_dat)
+        
         if self.export_eqsim_events:
             scan_events = True
             eqsim_event_exporter                    = EqSimEventExporter(self)
             eqsim_event_exporter.min_slip_map_mag   = self.export_eqsim_events_min_slip_map_mag
-            eqsim_event_exporter.out_file           = '%sevents_slip-map-%.1f.dat'%(file_name_prepend,self.export_eqsim_events_min_slip_map_mag)
+            eqsim_event_exporter.out_file           = '%sevents_slip-map-%.1f.dat'%(file_name_prepend_eqsim,self.export_eqsim_events_min_slip_map_mag)
             try:
                 eqsim_event_exporter.setEidRemap(open('%s%s_element-remap.dat'%(self.root_dir, self.name),'r'))
             except:
@@ -6023,8 +6207,11 @@ class VCSys(object):
         elif scan_events:
             print '    **** Scanning events'
             for event_num, event_data in enumerate(events[start_event:end_event]):
-                #if ( event_num%5000 == 0 ):
-                #    print '        event:%i of %i'%(event_num, end_event - start_event)
+                if ( event_num%5000 == 0 ):
+                    py_sys.stdout.write('\r')
+                    py_sys.stdout.flush()
+                    py_sys.stdout.write('        event:%i of %i'%(event_num, end_event - start_event))
+                    py_sys.stdout.flush()
                 if state_data is not None:
                     state_data.addEvent(event_data, sweeps[event_data[8]:event_data[9]])
                     
@@ -6049,7 +6236,7 @@ class VCSys(object):
                     
                 analyze_sweeps = False
                 
-                if self.magnitude_rupture_area is not False or self.magnitude_average_slip is not False or self.average_slip_rupture_length is not False:
+                if self.magnitude_rupture_area is not False or self.magnitude_average_slip is not False or self.average_slip_rupture_length is not False or self.slip_in_slip_out is not False:
                     if self.section_filter is not None:
                         if self.geometry.elements[int(event_data[2])].sid in self.section_filter:
                             analyze_sweeps = True
@@ -6075,6 +6262,8 @@ class VCSys(object):
                         eid = sweep[2]
                         if self.magnitude_average_slip is not False or self.average_slip_rupture_length is not False:
                             total_slip += sweep[3]
+                        if self.slip_in_slip_out is not False:
+                            slip_in_slip_out_plotter.addSlip(eid, sweep[3])
                         try:
                             tmp = ruptured_elements[eid]
                         except KeyError:
@@ -6096,6 +6285,7 @@ class VCSys(object):
                         average_slip_rupture_length_plotter.addEvent(average_slip, rupture_length * 1.0e-3)
     
         event_count = {}
+        print
         print '    **** Begining plot'
         if self.rupture_map:
             rupture_map_plotter.plot()
@@ -6119,6 +6309,9 @@ class VCSys(object):
         if self.average_slip_rupture_length is not False:
             average_slip_rupture_length_plotter.plot()
             event_count['asrl'] = average_slip_rupture_length_plotter.event_count
+
+        if self.slip_in_slip_out is not False:
+            slip_in_slip_out_plotter.plot()
         
         if self.export_eqsim_events:
             eqsim_event_exporter.write()
@@ -7674,6 +7867,13 @@ class VCSection(object):
         self.sys = sys
         #super(VCSection,self).__init__()
     
+    @property
+    def surface_area(self):
+        surface_area = 0.0
+        for eid in self.selement_ids:
+            surface_area += self.sys.elements[eid].area()
+        return surface_area
+
     def exportKMLSectionLabel(self, out_file):
         trace_start_node_id = self.traceStartNode()
         if trace_start_node_id is None:
@@ -8084,6 +8284,22 @@ class VCEvents(object):
         self._event_ids = None
         self._mags = None
         #self.simple_event_list = None
+    
+    '''
+    @property
+    def events(self):
+        f = h5py.File(self.sys.data_file, 'r')
+        events = f['event_table']
+        f.close()
+        return events
+    
+    @property
+    def sweeps(self):
+        f = h5py.File(self.sys.data_file, 'r')
+        sweeps = f['event_sweep_table']
+        f.close()
+        return sweeps
+    '''
     
     @property
     def years(self):
