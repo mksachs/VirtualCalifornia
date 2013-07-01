@@ -24,7 +24,6 @@ import Converter
 import MyVector as vec
 import Queue
 from matplotlib import cm
-import quakelib
 #import quakelib
 import gc
 '''
