@@ -14,8 +14,9 @@ framework.
 
 """
 import os, sys
-sys.path.append('/home/sachs/Documents/VirtualCalifornia/trunk/vcal_webgui')
-sys.path.append('/home/sachs/Documents/VirtualCalifornia/trunk/vcal_py/classes')
+#make sure the next two lines are commented out to run locally.
+#sys.path.append('/home/sachs/Documents/VirtualCalifornia/trunk/vcal_webgui')
+#sys.path.append('/home/sachs/Documents/VirtualCalifornia/trunk/vcal_py/classes')
 
 # We defer to a DJANGO_SETTINGS_MODULE already in the environment. This breaks
 # if running multiple sites in the same mod_wsgi process. To fix this, use

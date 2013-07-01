@@ -224,6 +224,7 @@
 		B82826A71742A6AC006A6096 /* vcal_py.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = vcal_py.py; sourceTree = "<group>"; };
 		B82826B01742A76C006A6096 /* event_list.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = event_list.html; sourceTree = "<group>"; };
 		B87C9B29174594A700164E3F /* action.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = action.js; sourceTree = "<group>"; };
+		B8D6623917823B2900EAB25A /* vc_browser.pth */ = {isa = PBXFileReference; lastKnownFileType = text; path = vc_browser.pth; sourceTree = "<group>"; };
 		B8F94E6B1742D7C800471FF0 /* VC.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = VC.css; sourceTree = "<group>"; };
 		B8F94E6E1742D7C800471FF0 /* FuturaT-Bold.eot */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FuturaT-Bold.eot"; sourceTree = "<group>"; };
 		B8F94E6F1742D7C800471FF0 /* FuturaT-Bold.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "FuturaT-Bold.svg"; sourceTree = "<group>"; };
@@ -295,6 +296,7 @@
 		B816CBF817419F64002B7133 = {
 			isa = PBXGroup;
 			children = (
+				B8D6623917823B2900EAB25A /* vc_browser.pth */,
 				B8FAC525174FFB54005A2D47 /* create_caches.py */,
 				B82825A41742A6AB006A6096 /* vcal_py */,
 				B82824871742A1BC006A6096 /* design */,

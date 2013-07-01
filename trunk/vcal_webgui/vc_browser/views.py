@@ -11,7 +11,6 @@ import os
 import cPickle
 import json
 
-#site.addsitedir('')
 
 import VC
 
