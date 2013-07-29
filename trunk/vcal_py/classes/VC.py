@@ -1505,9 +1505,10 @@ class BasicPlotter(object):
         self.bm = 45.0
         self.res = 72.0
         
-        self.ticklabelfont = matplotlib.font_manager.FontProperties(family='FreeSans', style='normal', variant='normal', size=9)
-        self.framelabelfont = matplotlib.font_manager.FontProperties(family='FreeSans', style='normal', variant='normal', size=10)
-        self.legendfont = matplotlib.font_manager.FontProperties(family='FreeSans', style='normal', variant='normal', size=10)
+        self.ticklabelfont = matplotlib.font_manager.FontProperties(family='Arial', style='normal', variant='normal', size=9)
+        self.framelabelfont = matplotlib.font_manager.FontProperties(family='Arial', style='normal', variant='normal', size=10)
+        self.legendfont = matplotlib.font_manager.FontProperties(family='Arial', style='normal', variant='normal', size=10)
+        self.titlefont = matplotlib.font_manager.FontProperties(family='Arial', style='normal', variant='normal', size=12)
         #arial8_light = matplotlib.font_manager.FontProperties(family='FreeSans', style='normal', variant='normal', size=8, weight='light')
     
     def addEvent(self):
@@ -2144,6 +2145,211 @@ class SlipInSlipOutPlotter(BasicPlotter):
             f.write('%i %g %g\n'%(eid, i, o/self.duration))
         f.close()
 
+class  RecurrenceIntervalPlotter(BasicPlotter):
+    def __init__(self, sys):
+        print '    **** Initilizing Recurrence Intervals'
+        self.name = None
+        self.out_file_prepend = None
+        self.out_text_file_prepend = None
+        self.sections = {}
+        super(RecurrenceIntervalPlotter,self).__init__(sys)
+        
+    def addEvent(self, magnitude, year, involved_sections):
+        super(RecurrenceIntervalPlotter,self).addEvent()
+        for sid in involved_sections:
+            try:
+                self.sections[sid].append((magnitude,year))
+            except KeyError:
+                self.sections[sid] = [(magnitude,year)]
+    
+    def plot(self):
+        
+        bins = np.linspace(0,250,50)
+        for sid in sorted(self.sections.keys()):
+            years = [x[1] for x in self.sections[sid]]
+            years7 = [x[1] for x in self.sections[sid] if x[0] >= 7.0]
+            intervals = []
+            intervals7 = []
+            
+            for n, year in enumerate(years):
+                if n != 0:
+                    intervals.append(year - years[n-1])
+            for n, year in enumerate(years7):
+                if n != 0:
+                    intervals7.append(year - years7[n-1])
+            
+            # do the plot
+            if self.out_file_prepend is not None:
+                title = '%s %s Recurrence Intervals'%(self.name, self.sys.geometry.sections[sid].sname)
+                
+                # plotting parameters that are common to all the scaling relations
+                imw = self.imw
+                imh = self.imh + 30.0
+                lm = self.lm
+                rm = self.rm
+                tm = self.tm + 30.0
+                bm = self.bm
+                res = self.res
+            
+                imwi = imw/res
+                imhi = imh/res
+                pw = imw - lm - rm
+                ph = imh - tm - bm
+                fig = plt.figure(figsize=(imwi, imhi), dpi=res)
+                the_ax = fig.add_axes((lm/imw, bm/imh, pw/imw, ph/imh))
+                
+                # some data crunching
+                hist7, bins7 = np.histogram(intervals7, bins=bins, density=True)
+                hist, bins = np.histogram(intervals, bins=bins, density=True)
+                mean = np.mean(intervals)
+                std = np.std(intervals)
+                mean7 = np.mean(intervals7)
+                std7 = np.std(intervals7)
+                    
+                #print hist
+                # plotting commands
+                the_ax.step(bins[0:-1], hist, where='post', label='m>6.5')
+                the_ax.step(bins7[0:-1], hist7, where='post', label='m>7')
+                
+                for label in the_ax.xaxis.get_ticklabels()+the_ax.yaxis.get_ticklabels():
+                    label.set_fontproperties(self.ticklabelfont)
+                    
+                the_ax.set_ylabel('Prob. Density', fontproperties=self.framelabelfont)
+                the_ax.set_xlabel('Recurrence Time [yr]', fontproperties=self.framelabelfont)
+                
+                the_ax.autoscale_view(tight=True)
+                
+                the_ax.set_title(title, position=(0.0,1.04), ha='left', fontproperties=self.titlefont)
+                the_ax.text(0.0, 1.01, 'm>6.5: mean %.1f std %.1f, m>7.0 mean %.1f std %.1f'%(mean, std, mean7, std7), va='bottom', ha='left', transform=the_ax.transAxes, fontproperties=self.framelabelfont)
+        
+                the_ax.legend(prop=self.legendfont)
+                   
+                plt.savefig('%ss-%i-%s_recurrence-interval.%s'%(self.out_file_prepend, sid, self.sys.geometry.sections[sid].sname, self.output_format), format=self.output_format, dpi=res)
+            # output the text file
+            if self.out_text_file_prepend is not None:
+                
+                f = open('%ss-%i-%s_recurrence-interval.dat'%(self.out_text_file_prepend, sid, self.sys.geometry.sections[sid].sname),'w')
+                
+                f.write('m>6.5 m>7.0\n')
+                
+                if len(intervals7) > len(intervals):
+                    for i, interval in enumerate(intervals7):
+                        try:
+                            f.write('%f %f\r'%(intervals[i], interval))
+                        except IndexError:
+                            f.write('0.0 %f\r'%(interval))
+                else:
+                    for i, interval in enumerate(intervals):
+                        try:
+                            f.write('%f %f\r'%(interval, intervals7[i]))
+                        except IndexError:
+                            f.write('%f 0.0\r'%(interval))
+                
+                f.close()
+
+            
+
+            
+        
+        '''
+        self.x = []
+        self.y = []
+        
+        # for the UCERF2 error bars
+        extra_x = [5.0, 5.5, 6.0, 6.5, 7.0, 7.5]
+        extra_y = [4.73, 2.15, 0.71, 0.24, 0.074, 0.020]    
+        extra_y_error = [[1.2, 0.37, 0.22, 0.09, 0.04, 0.016],[1.50, 0.43, 0.28, 0.11, 0.06, 0.035]]
+        
+        cum_freq = {}
+        total_events = len(self.magnitudes)
+        
+        if self.out_text_file is not None:
+            f = open(self.out_text_file,'w')
+        
+        #print self.number_of_years
+        
+        for num, magnitude in enumerate(sorted(self.magnitudes)):
+            cum_freq['%.10f'%magnitude] = total_events - (num + 1)
+        
+        for magnitude in sorted(cum_freq.iterkeys()):
+            if self.out_text_file is not None:
+                f.write('%f %f\n'%(float(magnitude), float(cum_freq[magnitude])/self.number_of_years))
+            #print magnitude, float(cum_freq[magnitude])/self.number_of_years
+            if self.out_file is not None:
+                self.x.append(magnitude)
+                self.y.append(float(cum_freq[magnitude])/self.number_of_years)
+        
+        if self.out_text_file is not None:
+            f.close()
+        
+        # do the plot
+        if self.out_file is not None:
+            title = '%s Frequency-Magnitude'%self.name
+            
+            # plotting parameters that are common to all the scaling relations
+            imw = self.imw
+            imh = self.imh
+            lm = self.lm
+            rm = self.rm
+            tm = self.tm
+            bm = self.bm
+            res = self.res
+
+        
+            imwi = imw/res
+            imhi = imh/res
+            pw = imw - lm - rm
+            ph = imh - tm - bm
+            fig = plt.figure(figsize=(imwi, imhi), dpi=res)
+            the_ax = fig.add_axes((lm/imw, bm/imh, pw/imw, ph/imh))
+            
+            x = map(float, self.x)
+            y = map(float, self.y)
+            
+            # create the line for b = 1
+            x_b1 = np.linspace(np.min(x),np.max(x),10)
+            y_b1 = 10**(math.log(y[0],10)+x[0]-x_b1)
+            
+            #y_b1 *= 10**np.mean(y)
+            
+            #if connect_points:
+            ls1 = '--'
+            #else:
+            #    ls1 = 'None'
+            lw1 = 1.0
+            c1 = (0.7,0.7,0.7,1)
+            mfc1 = (0,0,0,1)
+            ms1 = 3
+            marker1 = 'o'
+            
+            ls_extra = ':'
+            lw_extra = 1.0
+            c_extra = (0.5,0.5,0.5,1)
+            
+            the_ax.semilogy(x, y, ls = ls1, lw = lw1, c = c1, mfc = mfc1, ms = ms1, marker = marker1)
+            
+            the_ax.semilogy(x_b1, y_b1, ls = ls_extra, lw = lw_extra, c = c_extra, label = 'b = 1')
+            
+            for label in the_ax.xaxis.get_ticklabels()+the_ax.yaxis.get_ticklabels():
+                label.set_fontproperties(self.ticklabelfont)
+                
+            the_ax.set_ylabel('Log(Cumulative Number of Events)', fontproperties=self.framelabelfont)
+            the_ax.set_xlabel('Magnitude', fontproperties=self.framelabelfont)
+            
+            the_ax.autoscale_view(tight=True)
+            
+            #the_ax.tick_params(fontproperties=arial12)
+            
+            #the_ax.margins(0.05,0.3)
+            
+            #the_ax.set_title(title, position=(0.0,1.05), ha='left', fontproperties=arial12)
+            
+            the_ax.legend(prop=self.legendfont)
+               
+            plt.savefig(self.out_file, format=self.output_format, dpi=res)
+
+            #self.basicPlot(x_label='Magnitude', y_label='Log(Cumulative Number of Events)', title=title, out_file = self.out_file, axis_scale = 'semilogy', connect_points = True, extra_x = extra_x, extra_y = extra_y, extra_y_error = extra_y_error, extra_title = 'UCERF2 Observed 95% Confidence')
+            '''
         
         
 
@@ -2574,6 +2780,7 @@ class VCSys(object):
         self.export_eqsim_events = False
         self.export_eqsim_events_min_slip_map_mag = 5.0
         self.slip_in_slip_out = False
+        self.recurrence_intervals = False
         #self.export_eqsim_geometry = False
         #self.trace_file = None
         self.export_eqsim_events = False
@@ -6126,7 +6333,7 @@ class VCSys(object):
                 average_slip_rupture_length_plotter.out_file        = '%saverage-slip-rupture-length.%s'%(file_name_prepend,self.output_format)
             if self.average_slip_rupture_length == 'both' or self.average_slip_rupture_length == 'text':
                 average_slip_rupture_length_plotter.out_text_file = '%saverage-slip-rupture-length.dat'%(file_name_prepend_dat)
-        
+    
         if self.slip_in_slip_out is not False:
             scan_events = True
             slip_in_slip_out_plotter = SlipInSlipOutPlotter(self)
@@ -6135,12 +6342,17 @@ class VCSys(object):
                 slip_in_slip_out_plotter.duration = self.geometry.converter.year_sec(events[end_event][1])
             else:
                 slip_in_slip_out_plotter.duration = self.geometry.converter.year_sec(events[end_event][1] - events[start_event][1])
-
-            #if self.average_slip_rupture_length == 'both' or self.average_slip_rupture_length == 'plot':
-            #    average_slip_rupture_length_plotter.output_format   = self.output_format
-            #    average_slip_rupture_length_plotter.out_file        = '%saverage-slip-rupture-length.%s'%(file_name_prepend,self.output_format)
-            #if self.average_slip_rupture_length == 'both' or self.average_slip_rupture_length == 'text':
             slip_in_slip_out_plotter.out_text_file = '%sslip_in_slip_out.dat'%(file_name_prepend_dat)
+
+        if self.recurrence_intervals is not False:
+            scan_events = True
+            recurrence_interval_plotter         = RecurrenceIntervalPlotter(self)
+            recurrence_interval_plotter.name    = self.name
+            if self.recurrence_intervals == 'both' or self.recurrence_intervals == 'plot':
+                recurrence_interval_plotter.output_format       = self.output_format
+                recurrence_interval_plotter.out_file_prepend    = file_name_prepend
+            if self.recurrence_intervals == 'both' or self.recurrence_intervals == 'text':
+                recurrence_interval_plotter.out_text_file_prepend = file_name_prepend_dat
         
         if self.export_eqsim_events:
             scan_events = True
@@ -6236,7 +6448,7 @@ class VCSys(object):
                     
                 analyze_sweeps = False
                 
-                if self.magnitude_rupture_area is not False or self.magnitude_average_slip is not False or self.average_slip_rupture_length is not False or self.slip_in_slip_out is not False:
+                if self.magnitude_rupture_area is not False or self.magnitude_average_slip is not False or self.average_slip_rupture_length is not False or self.slip_in_slip_out is not False or self.recurrence_intervals is not False:
                     if self.section_filter is not None:
                         if self.geometry.elements[int(event_data[2])].sid in self.section_filter:
                             analyze_sweeps = True
@@ -6283,6 +6495,13 @@ class VCSys(object):
                         magnitude_average_slip_plotter.addEvent(event_data[3], average_slip)
                     if self.average_slip_rupture_length is not False and rupture_length != 0.0:
                         average_slip_rupture_length_plotter.addEvent(average_slip, rupture_length * 1.0e-3)
+                    if self.recurrence_intervals is not False and event_data[3] >= 6.5:
+                        involved_sections = {}
+                        for eid in ruptured_elements.keys():
+                            sid = self.geometry.elements[eid].sid
+                            involved_sections[sid] = sid
+                        recurrence_interval_plotter.addEvent(event_data[3], event_data[1], involved_sections.keys())
+                        
     
         event_count = {}
         print
@@ -6313,6 +6532,9 @@ class VCSys(object):
         if self.slip_in_slip_out is not False:
             slip_in_slip_out_plotter.plot()
         
+        if self.recurrence_intervals is not False:
+            recurrence_interval_plotter.plot()
+    
         if self.export_eqsim_events:
             eqsim_event_exporter.write()
         '''

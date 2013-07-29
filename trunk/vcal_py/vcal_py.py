@@ -265,6 +265,11 @@ def main(argv=None):
                 dest="mags_by_section", action="store_true",  default=False,
                 help=""
                 )
+    parser.add_option("--recurrence-intervals", "--ri",
+                dest="recurrence_intervals", choices=('both', 'text', 'plot'),  default=False,
+                help="Plots the recurrence intervals for each section in the sim. OUTPUT_TYPE can be text, plot or both.",
+                metavar="OUTPUT_TYPE"
+                )
 
 
     (options, args) = parser.parse_args()
@@ -337,6 +342,7 @@ def main(argv=None):
     plot_greens_interactions            = options.plot_greens_interactions
     mags_by_section                     = options.mags_by_section
     event_fault_map                     = options.event_fault_map
+    recurrence_intervals                = options.recurrence_intervals
 
     do_event_actions = False
     do_IT_actions = False
@@ -353,7 +359,8 @@ def main(argv=None):
             export_eqsim_events             is not False or \
             event_animation                 is not False or \
             print_event_info                is not False or \
-            slip_in_slip_out                is not False:
+            slip_in_slip_out                is not False or \
+            recurrence_intervals            is not False:
         do_event_actions = True
     
     
@@ -557,7 +564,7 @@ def main(argv=None):
         vc_sys.rupture_map                          = rupture_map
         
         #### Event Animation
-        vc_sys.event_animation                     = event_animation
+        vc_sys.event_animation                      = event_animation
         
         #### Frequency Magnitude
         vc_sys.frequency_magnitude                  = frequency_magnitude
@@ -580,6 +587,9 @@ def main(argv=None):
 
         #### Slip In - Slip Out
         vc_sys.slip_in_slip_out                     = slip_in_slip_out
+
+        #### Recurrence intervals
+        vc_sys.recurrence_intervals                 = recurrence_intervals
 
         #cProfile.runctx('vc_sys.eventActions(data_file, start_event, end_event)', globals(), locals(), 'prof')
 

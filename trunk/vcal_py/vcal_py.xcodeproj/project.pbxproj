@@ -18,12 +18,14 @@
 		B8AFFDD816CEC5A5008E4D03 /* Utils.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = Utils.py; sourceTree = "<group>"; };
 		B8B11F9914BFA11A00147EDC /* vcal_py_trace_file_example.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = vcal_py_trace_file_example.dat; sourceTree = "<group>"; };
 		B8C9FF4E1579372200AA3864 /* Chaos.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = Chaos.py; sourceTree = "<group>"; };
+		B8D0978B178B43390006310A /* siso_test.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = siso_test.py; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
 		B8948A021385A580008946E8 = {
 			isa = PBXGroup;
 			children = (
+				B8D0978B178B43390006310A /* siso_test.py */,
 				B8A9FA25172883A1004122D6 /* eli_demo.py */,
 				B810D2E815093CC90077296D /* sandbox.py */,
 				B88584B11423C41B003DC67F /* vcal_py_options_example.dat */,
