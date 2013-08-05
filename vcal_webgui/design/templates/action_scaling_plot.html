@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+    
+<!-- APIs -->
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="js/classy.js" type="text/javascript"></script>
+    
+<!-- Site JavaScript -->
+    <script src="js/ui.js" type="text/javascript"></script>
+    <script src="js/event_list.js" type="text/javascript"></script>
+    
+<!-- Stylesheets -->
+    <link href="fonts/FuturaT/stylesheet.css" rel="stylesheet" type="text/css" />
+    <link href="css/VC.css" rel="stylesheet" type="text/css"  type="text/css" />
+        
+<!-- Page initilization script -->
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var mb = new UIMenubar("#menu_bar", el);
+        });
+    </script>
+	<title>Virtual California</title>
+</head>
+<body>
+<div id="uber">
+    <div id="menu_bar">
+        
+        <div class="menu_bar_item" id="system_menu">
+            <p>System</p>
+            <ul>
+                <li id="system_menu_new">New...</li>
+                <li id="system_menu_info">Info...</li>
+            </ul>
+        </div>
+        
+        <div class="menu_bar_item" id="file_menu">
+            <p>File</p>
+            <ul>
+                <li id="file_menu_download_event_data">Download Event Data...</li>
+                <li id="file_menu_download_fault_data">Download Fault Data...</li>
+            </ul>
+        </div>
+        
+        <div class="menu_bar_item" id="view_menu">
+            <p>View</p>
+            <ul>
+                <li id="view_menu_fault_map">Fault Map
+                    <div class="menu_bar_action link"><a href="view_fault_map.html" class="menu_bar_action link">Fault Map</a></div>
+                </li>
+                    
+                <li class="active" id="view_menu_event_list">Event List</li>
+            </ul>
+        </div>
+        
+        <div class="menu_bar_item" id="action_menu">
+            <p>Action</p>
+            <ul>
+                <li class="disabled" id="action_menu_select_actions">Select Actions...
+                    <div class="menu_bar_action dialog">
+                            <h1> Event Actions </h1>
+                            <p>
+                                <input class="check" type="checkbox" name="frequency_magnitude" id="frequency_magnitude" /> <label for="frequency_magnitude">Frequency-Magnitude</label>
+                            </p>
+                            <p>
+                                <input class="check" type="checkbox" name="magnitude_average_slip" id="magnitude_average_slip" /> <label for="magnitude_average_slip">Magnitude-Average Slip</label>
+                            </p>
+                            <p>
+                                <input class="check" type="checkbox" name="magnitude_rupture_area" id="magnitude_rupture_area" /> <label for="magnitude_rupture_area">Magnitude-Rupture Area</label>
+                            </p>
+                            <p>
+                                <input class="check" type="checkbox" name="average_slip_rupture_length" id="average_slip_rupture_length" /> <label for="average_slip_rupture_length">Average Slip-Rupture Length</label>
+                            </p>
+                            <p>
+                                <input class="check" type="checkbox" name="space_time" id="space_time" /> <label for="space_time">Space-Time Diagram</label>
+                            </p>
+                            <!--<p>
+                                <label for="start_year">Start Year</label> <input type="text" size="7" name="start_year" id="start_year" class="text" />
+                                <label for="end_year">End Year</label> <input type="text" size="7" name="end_year" id="end_year" class="text" />
+                            </p>-->
+                            <p class="buttons">
+                                <input class="button default" name="go" type="button" value="Go" />
+                                <input class="button" name="cancel" type="button" value="Cancel" />
+                                <!--<a href="" class="button"><span>Cancel</span></a> <a href="" class="button"><span>Go</span></a>-->
+                            </p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        
+    </div>
+    
+    <div id="content">
+        <div id="event_info">
+            <div id="event_number">Number: <b>156</b></div>
+            <div id="event_year">Time: <b>216-3-4 5:19:54 (216.17521)</b></div>
+            <div id="event_magnitude">Magnitude: <b>6.83484</b></div>
+            <div id="event_rupture_area">Rupture Area: <b>450.00000 [km<sup>2</sup>]</b></div>
+            <div id="event_surface_ruptue_length">Surface Rupture Length: <b>30.00000 [km]</b></div>
+            <div id="event_average_slip">Average Slip: <b>0.60241 [m]</b></div>
+            <div id="event_trigger_location">Trigger Element: <b>1600</b> Lat: <b>34.10175</b> Lon: <b>-117.45178</b></div>
+            <div id="event_trigger_section">Trigger Section: <b>23 San_Bernardino</b></div>
+            <div id="event_involved_sections">Involved Sections: <b>23 San_Bernardino, 31 Glen_Ivy</b></div>
+        </div>
+        <div id="event_time_series">
+            <img src="images/ALLCAL2_1-7-11_no-creep_dyn-05_st-20_Event-Time-Series_156.png" width="501" height="150" />
+        </div>
+        <div id="event_fault_map">
+            <img src="images/ALLCAL2_1-7-11_no-creep_dyn-05_st-20_Fault-Map_156.png" width="501" height="521" />
+        </div>
+        <div id="event_rupture_map">
+            <img src="images/ALLCAL2_1-7-11_no-creep_dyn-05_st-20_Event-Rupture-Map_156.png" width="1010" height="999" />
+        </div>
+    </div>
+    
+    <div id="system">
+        <div id="system_name"><p>System Name</p></div>
+        <div id="system_info">
+            <p>Sections: #</p>
+            <p>Elements: #</p>
+            <p>Events: #</p>
+            <p>Years: #</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
