@@ -51,16 +51,16 @@
 /* End PBXGroup section */
 
 /* Begin PBXLegacyTarget section */
-		B8A0125013E8766000E2B0E7 /* vcal_py */ = {
+		B8A0125013E8766000E2B0E7 /* pyvc */ = {
 			isa = PBXLegacyTarget;
 			buildArgumentsString = "$(ACTION)";
-			buildConfigurationList = B8A0125113E8766100E2B0E7 /* Build configuration list for PBXLegacyTarget "vcal_py" */;
+			buildConfigurationList = B8A0125113E8766100E2B0E7 /* Build configuration list for PBXLegacyTarget "pyvc" */;
 			buildPhases = (
 			);
 			buildToolPath = /opt/local/bin/python;
 			dependencies = (
 			);
-			name = vcal_py;
+			name = pyvc;
 			passBuildSettingsInEnvironment = 1;
 			productName = vcal_py;
 		};
@@ -72,7 +72,7 @@
 			attributes = {
 				LastUpgradeCheck = 0410;
 			};
-			buildConfigurationList = B8948A071385A580008946E8 /* Build configuration list for PBXProject "vcal_py" */;
+			buildConfigurationList = B8948A071385A580008946E8 /* Build configuration list for PBXProject "pyvc" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -86,7 +86,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B8A0125013E8766000E2B0E7 /* vcal_py */,
+				B8A0125013E8766000E2B0E7 /* pyvc */,
 			);
 		};
 /* End PBXProject section */
@@ -131,7 +131,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = pyvc;
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -152,7 +152,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = pyvc;
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -160,7 +160,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B8948A071385A580008946E8 /* Build configuration list for PBXProject "vcal_py" */ = {
+		B8948A071385A580008946E8 /* Build configuration list for PBXProject "pyvc" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B8948A051385A580008946E8 /* Debug */,
@@ -169,7 +169,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B8A0125113E8766100E2B0E7 /* Build configuration list for PBXLegacyTarget "vcal_py" */ = {
+		B8A0125113E8766100E2B0E7 /* Build configuration list for PBXLegacyTarget "pyvc" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B8A0125213E8766100E2B0E7 /* Debug */,

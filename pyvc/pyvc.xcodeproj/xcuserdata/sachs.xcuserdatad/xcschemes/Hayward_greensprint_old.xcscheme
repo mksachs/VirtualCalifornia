@@ -15,8 +15,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B8A0125013E8766000E2B0E7"
                BuildableName = "vcal_py"
-               BlueprintName = "vcal_py"
-               ReferencedContainer = "container:vcal_py.xcodeproj">
+               BlueprintName = "pyvc"
+               ReferencedContainer = "container:pyvc.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -34,7 +34,10 @@
       selectedLauncherIdentifier = "Xcode.IDEFoundation.Launcher.PosixSpawn"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
-      buildConfiguration = "Debug">
+      buildConfiguration = "Debug"
+      ignoresPersistentStateOnLaunch = "NO"
+      debugDocumentVersioning = "YES"
+      allowLocationSimulation = "YES">
       <PathRunnable
          FilePath = "/opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin/python2.7">
       </PathRunnable>
@@ -43,8 +46,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B8A0125013E8766000E2B0E7"
             BuildableName = "vcal_py"
-            BlueprintName = "vcal_py"
-            ReferencedContainer = "container:vcal_py.xcodeproj">
+            BlueprintName = "pyvc"
+            ReferencedContainer = "container:pyvc.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <CommandLineArguments>
@@ -76,7 +79,8 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
-      buildConfiguration = "Release">
+      buildConfiguration = "Release"
+      debugDocumentVersioning = "YES">
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
