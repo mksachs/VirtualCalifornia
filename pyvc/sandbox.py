@@ -1,35 +1,8 @@
-import site
-site.addsitedir('')
-import VC
-import Utils
-import Converter
-import os
-import cPickle
-import quakelib
-import h5py
+from pyvc import *
 
-#import cProfile
-import math
+events = VCEvents('demo.h5')
 
-import numpy as np
-#import Chaos
-import matplotlib as mpl
-import matplotlib.pyplot as plt
-from matplotlib.colors import LogNorm
-import matplotlib.patches as mpatches
-from matplotlib.colors import LinearSegmentedColormap
-from matplotlib import cm
-import matplotlib.lines as mlines
-
-#import eqsim
-import subprocess
-#import glob
-#from PIL import Image
-#import shutil
-import profile
-
-
-print Utils.magnitude(1.17, 7.05e8)
+print events.years
 
 ''' Print the total slip of each event 
 data_file = '/Users/sachs/Documents/VirtualCaliforniaSVN/trunk/models/ALLCAL2_1-7-11_no-creep/run7/ALLCAL2_no-creep_dt-08_st-10.h5'

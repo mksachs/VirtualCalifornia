@@ -14,7 +14,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B8A0125013E8766000E2B0E7"
-               BuildableName = "vcal_py"
+               BuildableName = "pyvc"
                BlueprintName = "pyvc"
                ReferencedContainer = "container:pyvc.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B8A0125013E8766000E2B0E7"
-            BuildableName = "vcal_py"
+            BuildableName = "pyvc"
             BlueprintName = "pyvc"
             ReferencedContainer = "container:pyvc.xcodeproj">
          </BuildableReference>
