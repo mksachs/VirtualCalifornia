@@ -5,6 +5,9 @@ import h5py
 class VCSys(object):
     def __init__(self, sim_file=''):
         self.sim_file = sim_file
+        
+        f=tables.open_file('demo_big.h5')
+        
         '''
         self._geometry = None
         self._events = VCEvents(self)

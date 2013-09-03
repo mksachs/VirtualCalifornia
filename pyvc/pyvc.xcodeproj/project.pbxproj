@@ -24,6 +24,8 @@
 		B8EFC34D17CFC785006B4107 /* vcevents.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = vcevents.py; sourceTree = "<group>"; };
 		B8EFC34E17CFCDD2006B4107 /* __init__.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = __init__.py; sourceTree = "<group>"; };
 		B8EFC34F17CFD273006B4107 /* vcexceptions.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = vcexceptions.py; sourceTree = "<group>"; };
+		B8EFC35017D10DDC006B4107 /* vcplots.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = vcplots.py; sourceTree = "<group>"; };
+		B8EFC35117D12372006B4107 /* vcutils.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = vcutils.py; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -54,6 +56,8 @@
 				B8EFC34D17CFC785006B4107 /* vcevents.py */,
 				B8EFC34E17CFCDD2006B4107 /* __init__.py */,
 				B8EFC34F17CFD273006B4107 /* vcexceptions.py */,
+				B8EFC35017D10DDC006B4107 /* vcplots.py */,
+				B8EFC35117D12372006B4107 /* vcutils.py */,
 			);
 			path = pyvc;
 			sourceTree = "<group>";
