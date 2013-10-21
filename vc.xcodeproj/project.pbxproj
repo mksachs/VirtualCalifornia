@@ -185,6 +185,7 @@
 		B8C2F5A717CEB915002F9A83 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; usesTabs = 0; };
 		B8C5ED9117CD561F00121907 /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = config.h; path = build/config.h; sourceTree = "<group>"; };
 		B8C5ED9217CD575B00121907 /* QuakeLibSectionParams.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = QuakeLibSectionParams.cpp; path = quakelib/src/QuakeLibSectionParams.cpp; sourceTree = "<group>"; };
+		B8F62D491815CC1D00CC27A0 /* Doxyfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Doxyfile; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -371,6 +372,7 @@
 		B8C2F59417CE6018002F9A83 /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				B8F62D491815CC1D00CC27A0 /* Doxyfile */,
 				B84B012517D69960004ACD58 /* test */,
 				B8C2F59B17CE6054002F9A83 /* quakelib */,
 				B8C2F59A17CE604B002F9A83 /* src */,
