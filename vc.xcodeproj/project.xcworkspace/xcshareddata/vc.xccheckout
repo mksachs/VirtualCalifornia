@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>851BADFB-EDAD-4311-BA54-4B3B94181638</string>
+	<key>IDESourceControlProjectName</key>
+	<string>vc</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>2E77CF7B-21A7-4437-961E-5F1095057A7B</key>
+		<string>https://github.com/mksachs/VirtualCalifornia.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>vc.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>2E77CF7B-21A7-4437-961E-5F1095057A7B</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/mksachs/VirtualCalifornia.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>2E77CF7B-21A7-4437-961E-5F1095057A7B</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>2E77CF7B-21A7-4437-961E-5F1095057A7B</string>
+			<key>IDESourceControlWCCName</key>
+			<string>VirtualCalifornia</string>
+		</dict>
+	</array>
+</dict>
+</plist>
