@@ -58,6 +58,16 @@
 		B8C5ED9317CD575B00121907 /* QuakeLibSectionParams.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8C5ED9217CD575B00121907 /* QuakeLibSectionParams.cpp */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		B8BBBF5D181718FC00B49A9A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B885846D1816FDD300592C95 /* pyvc.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B83B0D731815A6FA00593A8B;
+			remoteInfo = disp_calc;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		B89C51B313E372A900DE7F49 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -166,6 +176,7 @@
 		B84B012717D69960004ACD58 /* run_test */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = run_test; sourceTree = "<group>"; };
 		B84B012817D69960004ACD58 /* test_friction.dat */ = {isa = PBXFileReference; lastKnownFileType = text; path = test_friction.dat; sourceTree = "<group>"; };
 		B84B012917D69960004ACD58 /* test_geometry.dat */ = {isa = PBXFileReference; lastKnownFileType = text; path = test_geometry.dat; sourceTree = "<group>"; };
+		B885846D1816FDD300592C95 /* pyvc.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = pyvc.xcodeproj; path = ../PyVC/pyvc.xcodeproj; sourceTree = "<group>"; };
 		B89C51B713E372A900DE7F49 /* vc */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = vc; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8C2F59517CE6044002F9A83 /* AUTHORS */ = {isa = PBXFileReference; lastKnownFileType = text; path = AUTHORS; sourceTree = "<group>"; };
 		B8C2F59617CE6044002F9A83 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
@@ -185,6 +196,7 @@
 		B8C2F5A717CEB915002F9A83 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; usesTabs = 0; };
 		B8C5ED9117CD561F00121907 /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = config.h; path = build/config.h; sourceTree = "<group>"; };
 		B8C5ED9217CD575B00121907 /* QuakeLibSectionParams.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = QuakeLibSectionParams.cpp; path = quakelib/src/QuakeLibSectionParams.cpp; sourceTree = "<group>"; };
+		B8F62D491815CC1D00CC27A0 /* Doxyfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Doxyfile; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -368,9 +380,19 @@
 			path = test;
 			sourceTree = "<group>";
 		};
+		B8BBBF5A181718FC00B49A9A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B8BBBF5E181718FC00B49A9A /* disp_calc */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		B8C2F59417CE6018002F9A83 /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				B885846D1816FDD300592C95 /* pyvc.xcodeproj */,
+				B8F62D491815CC1D00CC27A0 /* Doxyfile */,
 				B84B012517D69960004ACD58 /* test */,
 				B8C2F59B17CE6054002F9A83 /* quakelib */,
 				B8C2F59A17CE604B002F9A83 /* src */,
@@ -457,12 +479,28 @@
 			);
 			mainGroup = 08FB7794FE84155DC02AAC07 /* new_vcal */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = B8BBBF5A181718FC00B49A9A /* Products */;
+					ProjectRef = B885846D1816FDD300592C95 /* pyvc.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				B89C517613E372A900DE7F49 /* vc */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		B8BBBF5E181718FC00B49A9A /* disp_calc */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = disp_calc;
+			remoteRef = B8BBBF5D181718FC00B49A9A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B89C517713E372A900DE7F49 /* Sources */ = {
