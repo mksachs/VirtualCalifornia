@@ -12,6 +12,8 @@
 	<dict>
 		<key>39A8AB78-C2FF-4324-AA22-A259B4D04EA5</key>
 		<string>https://github.com/mksachs/VirtualCalifornia.git</string>
+		<key>B83B6F61-79C5-4F5D-B990-D1D7E1DFD398</key>
+		<string>https://github.com/mksachs/PyVC.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>vc.xcodeproj/project.xcworkspace</string>
@@ -19,6 +21,8 @@
 	<dict>
 		<key>39A8AB78-C2FF-4324-AA22-A259B4D04EA5</key>
 		<string>../..</string>
+		<key>B83B6F61-79C5-4F5D-B990-D1D7E1DFD398</key>
+		<string>../../../PyVC</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/mksachs/VirtualCalifornia.git</string>
@@ -28,6 +32,14 @@
 	<string>39A8AB78-C2FF-4324-AA22-A259B4D04EA5</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>B83B6F61-79C5-4F5D-B990-D1D7E1DFD398</string>
+			<key>IDESourceControlWCCName</key>
+			<string>PyVC</string>
+		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
