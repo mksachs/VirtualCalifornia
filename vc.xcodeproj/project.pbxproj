@@ -59,9 +59,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		B8BBBF5D181718FC00B49A9A /* PBXContainerItemProxy */ = {
+		B8198A9918198B1F0024E235 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = B885846D1816FDD300592C95 /* pyvc.xcodeproj */;
+			containerPortal = B8198A9518198B1F0024E235 /* pyvc.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = B83B0D731815A6FA00593A8B;
 			remoteInfo = disp_calc;
@@ -172,11 +172,11 @@
 		AAF45E8E1319169400C111BF /* SimError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SimError.h; path = src/core/SimError.h; sourceTree = "<group>"; };
 		AAF45EB113196A5E00C111BF /* VCComm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VCComm.h; path = src/core/VCComm.h; sourceTree = "<group>"; };
 		AAF45EB213196A5E00C111BF /* VCComm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = VCComm.cpp; path = src/core/VCComm.cpp; sourceTree = "<group>"; };
+		B8198A9518198B1F0024E235 /* pyvc.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = pyvc.xcodeproj; path = ../PyVC/pyvc.xcodeproj; sourceTree = "<group>"; };
 		B84B012617D69960004ACD58 /* params.d */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.dtrace; path = params.d; sourceTree = "<group>"; };
 		B84B012717D69960004ACD58 /* run_test */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = run_test; sourceTree = "<group>"; };
 		B84B012817D69960004ACD58 /* test_friction.dat */ = {isa = PBXFileReference; lastKnownFileType = text; path = test_friction.dat; sourceTree = "<group>"; };
 		B84B012917D69960004ACD58 /* test_geometry.dat */ = {isa = PBXFileReference; lastKnownFileType = text; path = test_geometry.dat; sourceTree = "<group>"; };
-		B885846D1816FDD300592C95 /* pyvc.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = pyvc.xcodeproj; path = ../PyVC/pyvc.xcodeproj; sourceTree = "<group>"; };
 		B89C51B713E372A900DE7F49 /* vc */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = vc; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8C2F59517CE6044002F9A83 /* AUTHORS */ = {isa = PBXFileReference; lastKnownFileType = text; path = AUTHORS; sourceTree = "<group>"; };
 		B8C2F59617CE6044002F9A83 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
@@ -369,6 +369,14 @@
 			name = QuakeLib;
 			sourceTree = "<group>";
 		};
+		B8198A9618198B1F0024E235 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B8198A9A18198B1F0024E235 /* disp_calc */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		B84B012517D69960004ACD58 /* test */ = {
 			isa = PBXGroup;
 			children = (
@@ -380,18 +388,10 @@
 			path = test;
 			sourceTree = "<group>";
 		};
-		B8BBBF5A181718FC00B49A9A /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				B8BBBF5E181718FC00B49A9A /* disp_calc */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		B8C2F59417CE6018002F9A83 /* Other */ = {
 			isa = PBXGroup;
 			children = (
-				B885846D1816FDD300592C95 /* pyvc.xcodeproj */,
+				B8198A9518198B1F0024E235 /* pyvc.xcodeproj */,
 				B8F62D491815CC1D00CC27A0 /* Doxyfile */,
 				B84B012517D69960004ACD58 /* test */,
 				B8C2F59B17CE6054002F9A83 /* quakelib */,
@@ -481,8 +481,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = B8BBBF5A181718FC00B49A9A /* Products */;
-					ProjectRef = B885846D1816FDD300592C95 /* pyvc.xcodeproj */;
+					ProductGroup = B8198A9618198B1F0024E235 /* Products */;
+					ProjectRef = B8198A9518198B1F0024E235 /* pyvc.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -493,11 +493,11 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		B8BBBF5E181718FC00B49A9A /* disp_calc */ = {
+		B8198A9A18198B1F0024E235 /* disp_calc */ = {
 			isa = PBXReferenceProxy;
 			fileType = "compiled.mach-o.executable";
 			path = disp_calc;
-			remoteRef = B8BBBF5D181718FC00B49A9A /* PBXContainerItemProxy */;
+			remoteRef = B8198A9918198B1F0024E235 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
