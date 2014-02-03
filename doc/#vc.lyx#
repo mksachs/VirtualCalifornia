@@ -1,0 +1,7368 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass book
+\begin_preamble
+\usepackage{hyperref}
+
+\let\myUrl\url
+\renewcommand{\url}[1]{(\myUrl{#1})}
+
+\raggedbottom
+\end_preamble
+\use_default_options false
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_amsmath 0
+\use_esint 0
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 1in
+\topmargin 1in
+\rightmargin 1in
+\bottommargin 1in
+\secnumdepth 3
+\tocdepth 5
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language swedish
+\papercolumns 1
+\papersides 2
+\paperpagestyle headings
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Virtual California User Manual
+\end_layout
+
+\begin_layout Author
+© University of California, Davis
+\begin_inset Newline newline
+\end_inset
+
+Version 1.0.0
+\end_layout
+
+\begin_layout Date
+\noindent
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+today
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FloatList figure
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Part
+Preface
+\end_layout
+
+\begin_layout Chapter*
+Preface
+\end_layout
+
+\begin_layout Section*
+About This Document
+\end_layout
+
+\begin_layout Standard
+This document is organized into three parts.
+ Part I consists of traditional book front matter, including this preface.
+ Part II begins with an introduction to Virtual California, the QuakeLib
+ library, and their capabilities then proceeds to the details of implementation.
+ Part III provides appendices and references for input and output files
+ and parameters.
+\end_layout
+
+\begin_layout Standard
+The style of this publication is based on the Apple Publications Style Guide
+ 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+developer.apple.com/library/mac/documentation/UserExperience/Conceptual/APStyleGui
+de/APSG_2009.pdf
+\end_layout
+
+\end_inset
+
+, as recommended by Python.org 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+www.python.org
+\end_layout
+
+\end_inset
+
+.
+ The documentation was produced using LyX 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+www.lyx.org
+\end_layout
+
+\end_inset
+
+ to facilitate the transformation of files from one format to another.
+ LyX is a document processor that encourages an approach to writing based
+ on the structure of your documents, not their appearance.
+ It is released under a Free Software/Open Source license.
+\end_layout
+
+\begin_layout Standard
+Errors and bug fixes in this manual should be directed to the CIG Mantle
+ Convection Mailing List 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+cig-mc@geodynamics.org
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section*
+Who Will Use This Document
+\end_layout
+
+\begin_layout Standard
+This documentation is aimed at two categories of users: scientists who prefer
+ to use prepackaged and specialized analysis tools, and experienced computationa
+l Earth scientists.
+ Of the latter, there are likely to be two classes of users: those who just
+ run models, and those who modify the source code.
+ Users who modify the source are likely to have familiarity with scripting,
+ software installation, and programming, but are not necessarily professional
+ programmers.
+\end_layout
+
+\begin_layout Standard
+The manual was written for the usage of Virtual California on a variety
+ of different platforms.
+ Virtual California has run on shared memory computers (Sun, Hewlett-Packard,
+ SGI, and IBM), commercial distributed memory machines (Intel and Cray/SGI),
+ clusters (including machines on NSF XSEDE), Linux PCs and Mac OS X desktops.
+ 
+\end_layout
+
+\begin_layout Section*
+Citation
+\end_layout
+
+\begin_layout Standard
+Computational Infrastructure for Geodynamics (CIG) is making this source
+ code available to you in the hope that the software will enhance your research
+ in geophysics, and probabilistic seismic hazard analysis.
+ The underlying C++ code for the Greens function calculations, stress evolution,
+ simulation framework, and the QuakeLib library and associated Python bindings
+ and testing framework were donated to CIG in December of 2012.
+ A number of individuals have contributed a significant portion of their
+ careers toward the development of Virtual California.
+ It is essential that you recognize these individuals in the normal scientific
+ practice by citing the appropriate peer reviewed papers and making appropriate
+ acknowledgements.
+ 
+\end_layout
+
+\begin_layout Standard
+The Virtual California development team asks that you cite both of the following
+:
+\end_layout
+
+\begin_layout Itemize
+Heien, E.M., Sachs, M.K., "Understanding Long-Term Earthquake Behavior through
+ Simulation," Computing in Science and Engineering, pp.
+ 10-20, Sept.-Oct., 2012 
+\end_layout
+
+\begin_layout Itemize
+Sachs, M.K., Heien, E.M., Turcotte, D.L., Yikilmaz, M.B., Rundle, J.B., Kellogg, L.H.
+ 
+\begin_inset Quotes sld
+\end_inset
+
+Virtual California Earthquake Simulator
+\begin_inset Quotes srd
+\end_inset
+
+ Seismological Research Letters, November/December 2012, v.
+ 83, p.
+ 973-978, doi:10.1785/0220120052
+\end_layout
+
+\begin_layout Standard
+The developers also request that in your oral presentations and in your
+ paper acknowledgements that you indicate your use of this code, the authors
+ of the code, and CIG 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+geodynamics.org
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section*
+Support
+\end_layout
+
+\begin_layout Standard
+Support for this work and researchers was provided by multiple sources.
+ This work was supported by the National Aeronautics and Space Administration
+ (NASA) grant number NNX08AF69G, JPL subcontract number 1291967, and NASA
+ Earth and Space Science Fellowship number NNX11AL92H.
+ Support was also given by the Southern California Earthquake Center (SCEC).
+ SCEC is funded by the National Science Foundation Cooperative Agreement
+ EAR-0529922 and U.S.
+ Geological Survey (USGS) Cooperative Agreement 07HQAG0008.
+ This work also used the Extreme Science and Engineering Discovery Environment
+ (XSEDE), which is supported by National Science Foundation grant number
+ OCI-1053575.
+ Any opinions, findings, and conclusions or recommendations expressed in
+ this material are those of the authors and do not necessarily reflect the
+ views of the National Science Foundation.
+\end_layout
+
+\begin_layout Section*
+Conventions
+\end_layout
+
+\begin_layout Standard
+Throughout this documentation, any mention of ``username'' is meant to indicate
+ the user, meaning you should substitute your account name in its place.
+\end_layout
+
+\begin_layout Part
+Chapters
+\end_layout
+
+\begin_layout Chapter
+Introduction
+\end_layout
+
+\begin_layout Standard
+Virtual California is a boundary element code designed to investigate long
+ term fault system behavior and interactions between faults through stress
+ transfer.
+ It is released under the MIT Public License (see Appendix 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "chap:License"
+
+\end_inset
+
+).
+ The core code is written in C++ and can be run on a variety of parallel
+ processing computers, including shared and distributed memory platforms.
+ To allow increased functionality including development of other simulators,
+ analysis scripts, and visualization tools, some key components of Virtual
+ California have been placed in the QuakeLib library which can be called
+ from C/C++ programs or Python scripts.
+\end_layout
+
+\begin_layout Section
+About Virtual California
+\end_layout
+
+\begin_layout Standard
+Virtual California is a boundary element code that performs simulations
+ of fault systems based on stress interactions between fault elements to
+ understand long term statistical behavior.
+ It performs these simulations using a model of faults embedded in a homogeneous
+ elastic half space with arbitrary dips and rakes.
+\end_layout
+
+\begin_layout Standard
+The code performs calculation assuming linear stress increase in the long
+ term based on element-element interaction calculations governed by Okada's
+ implementation of Green's functions.
+ During the rupture (earthquake) phase elements may fail and release stress
+ based on a combination of static and dynamic stress thresholds.
+ The behavior of the system is determined by interactions between elements
+ from the Green's function and the stress release from elements during events.
+ More detail about the equations and physics of the simulation is described
+ in Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Governing-Equations"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+History
+\end_layout
+
+\begin_layout Standard
+Virtual California (abbreviated VC) started as a limited simulation model
+ for distributed seismicity on the San Andreas and adjacent faults in southern
+ California, developed by Rundle 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Rundle:1988bj"
+
+\end_inset
+
+ in Fortran.
+ This model included stress accumulation, release and interactions between
+ faults to investigate earthquake dynamics in southern California.
+ The model was updated in the early to mid-2000s 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "2001PhRvL..87n8501R,Rundle2002gem,Rundle2006vc"
+
+\end_inset
+
+ to include major strike-slip faults in California and was named Virtual
+ California.
+ This model and simulation was used to examine recurrence time statistics
+ on California faults by Yakovlev 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "2005AGUFMNG21A..03Y"
+
+\end_inset
+
+, where it was concluded that the return times on a fault is well approximated
+ by a Weibull distribution.
+\end_layout
+
+\begin_layout Standard
+In 2010 Virtual California was rewritten by Eric Heien in C++ to have a
+ more modular simulation framework and add support for multiprocessor simulation
+ using OpenMP and/or MPI.
+ The fault model in Virtual California was also more cleanly separated from
+ the fundamental stress calculation to allow simulation of other fault systems,
+ including the Nankai trough in Japan 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "2010PhDT"
+
+\end_inset
+
+.
+ Additional features were also added, including a branching aftershock sequence
+ (BASS) model simulation of aftershocks 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "npg-18-955-2011"
+
+\end_inset
+
+, improved stress Green's function calculations, more sophisticated rupture
+ propagation, and support of parallel HDF5 output.
+ Virtual California was also used in an effort by the Southern California
+ Earthquake Center to unify and compare the results from several earthquake
+ simulators 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "TullisNovember/December"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+In 2011 and 2012, core components of Virtual California were separated into
+ the QuakeLib library and used to create analysis and visualization tools.
+ Improvements to simulation performance were also developed, including speculati
+ve execution for rupture propagation and a Barnes-Hut style approximation
+ scheme for the Green's functions.
+\end_layout
+
+\begin_layout Section
+About QuakeLib
+\end_layout
+
+\begin_layout Standard
+QuakeLib is a C++ library containing key mathematics, geophysics and I/O
+ functionality related to earthquake simulation and result analysis.
+ QuakeLib is currently distributed with and is used by Virtual California,
+ though it can be compiled and installed by itself on a machine.
+ More specifically, QuakeLib contains 1) functions to read, write and validate
+ fault models and earthquake catalogs in the EqSim format, 2) C++ classes
+ to represent and access these models and catalogs, 3) C++ classes to represent
+ faults and associated fault parameters as well as functionality related
+ to the faults, 4) C++ classes and functions to perform vector mathematics
+ and unit/geographic conversions related to modeling, 5) functions to evaluate
+ stress and displacement fields based on Okada's equations 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Okada01041992"
+
+\end_inset
+
+ given a rectangular fault or point source.
+\end_layout
+
+\begin_layout Standard
+QuakeLib is also written to support extension to other scripting languages
+ through the use of the Simplified Wrapper and Interface Generator (SWIG)
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Beazley:1996:SEU:1267498.1267513"
+
+\end_inset
+
+.
+ Currently this supports wrapping the QuakeLib library in a Python interface
+ though additional scripting languages can be easily added.
+ The scripting extension allows researchers to write analysis and visualization
+ scripts based on the same equations and data formats as the simulation.
+ The Python interface is also used as the basis for a testing framework
+ to ensure that any changes made to the code do not affect the scientific
+ results and that computations on different platforms yield the same results
+ within a specified tolerance.
+\end_layout
+
+\begin_layout Chapter
+VC Components and Governing Equations
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Governing-Equations"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+There are three major components that make up Virtual California: a fault
+ model, a set of quasi-static interactions (Green’s functions), and an event
+ model.
+ In spite of the name, the only component of Virtual California that is
+ specific to California is the fault model.
+ This model can be changed to any physically realistic model and still correctly
+ work with the simulation physics and event model.
+\end_layout
+
+\begin_layout Section
+Fault Model
+\end_layout
+
+\begin_layout Standard
+The model that is currently in use is based on the EQSIM format developed
+ by the Working Group on California Earthquake Probabilities 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "UCERF2"
+
+\end_inset
+
+.
+ The model includes 181 fault sections roughly corresponding to known faults
+ in California, with some faults modeled by multiple sections.
+ Each fault section is meshed into square elements that are roughly 3 km
+ × 3 km, for a total of 14,474 elements.
+ In the present version of our model, the creeping section of the San Andreas
+ fault is removed.
+ This section produces many events, slowing the simu- lation down considerably.
+ Each element in the model is given a constant back-slip velocity along
+ a fixed rake vector and a failure stress.
+ The rake vector always lies in the plane of the element; and, the angle
+ of the vector relative to the surface of the Earth, along with the rate
+ of slip, are quantities that are taken from the UCERF2 model.
+ The failure stresses, which are also required for the model, are derived
+ from paleoseismic event recurrence times.
+\end_layout
+
+\begin_layout Subsection
+Model Parameters and Initial Conditions
+\end_layout
+
+\begin_layout Standard
+Virtual California uses established scaling laws to determine certain model
+ parameters and initial conditions.
+ Past simulations required that the user specify the stress parameters on
+ each element then run the simulation based on this.
+ However, the parameters to produce realistic results depend strongly on
+ the model fault geometry, size of fault elements and friction properties.
+ Furthermore these parameters can be easily modified to produce arbitrary
+ fault behavior.
+ Rather than require the user to specify these parameters, they are internally
+ calculated by VC to match established physical laws and empirical observations.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Wells and Coppersmith (1994) showed that ?????
+\end_layout
+
+\begin_layout Standard
+For each fault VC calculates the expected moment magnitude from an earthquake
+ that ruptures all elements on the fault.
+ This is based on the equation:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+M=a+b*log(RA)
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where RA is the total area of all elements on the fault, and 
+\begin_inset Formula $a$
+\end_inset
+
+ and 
+\begin_inset Formula $b$
+\end_inset
+
+ are based on empirical observation.
+ By default 
+\begin_inset Formula $a=4.07$
+\end_inset
+
+ and 
+\begin_inset Formula $b=0.98$
+\end_inset
+
+.
+ These values do not vary significantly for strike-slip vs.
+ normal vs.
+ reverse faults, and they are measured for a wide range of both fault lengths
+ (from a 2-5000 kilometers) and earthquake magnitudes (4.8 to 7.9).
+\end_layout
+
+\begin_layout Standard
+Given this moment magnitude, VC determines the maximum slip on the elements
+ that would generate such an event:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\Delta s=\frac{10^{(3/2)(M+10.7)}}{lame*RA}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+TODO: is this slip-moment relationship correct?
+\end_layout
+
+\begin_layout Standard
+VC also calculates the lithostatic normal force acting on each element based
+ on the depth using the equation:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\sigma_{n}=\rho gd
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $\rho=5515\frac{kg}{m^{3}}$
+\end_inset
+
+, 
+\begin_inset Formula $g=9.81\frac{m}{s^{2}}$
+\end_inset
+
+ and d is the average depth of the element.
+\end_layout
+
+\begin_layout Standard
+Since an element moves at a velocity 
+\begin_inset Formula $s_{l}$
+\end_inset
+
+ and 
+\end_layout
+
+\begin_layout Subsection
+Setting Fault Parameters and Building a Fault Model
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:define_mesh_faults"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+VC treats a system of faults as multiple planar elements embedded in a flat
+ homogeneous halfspace.
+ To run Virtual California the first step is to define a fault system using
+ a set of traces.
+ Each trace describes the points along a given fault closest to the surface
+ as well as fault characteristics at each trace point, such as long term
+ velocity, dip angle, rake angle, depth, etc.
+ Details about the trace file format are shown in Appendix 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Trace-File-Format"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+In this example we look at the earthquake cycle and rupture mechanics on
+ a single 12 km square fault.
+ For simplicity, the trace of this fault runs eastward for 12km starting
+ from latitude/longitude (0,0) and ending at latitude/longitude .
+ The definition of this fault is in the file examples/fault_traces/single_fault_
+trace.txt and is also shown below.
+\end_layout
+
+\begin_layout LyX-Code
+# fault_id: ID number of the parent fault of this section
+\end_layout
+
+\begin_layout LyX-Code
+# num_points: Number of trace points comprising this section
+\end_layout
+
+\begin_layout LyX-Code
+# section_name: Name of the section
+\end_layout
+
+\begin_layout LyX-Code
+0 2 One_Element_Example
+\end_layout
+
+\begin_layout LyX-Code
+# latitude: Latitude of trace point
+\end_layout
+
+\begin_layout LyX-Code
+# longitude: Longitude of trace point
+\end_layout
+
+\begin_layout LyX-Code
+# altitude: Altitude of trace point (meters)
+\end_layout
+
+\begin_layout LyX-Code
+# depth_along_dip: Depth along dip (meters)
+\end_layout
+
+\begin_layout LyX-Code
+# slip_rate: Slip rate at trace point (centimeters/year)
+\end_layout
+
+\begin_layout LyX-Code
+# aseismic: Fraction of slip that is aseismic at point
+\end_layout
+
+\begin_layout LyX-Code
+# rake: Fault rake at trace point (degrees)
+\end_layout
+
+\begin_layout LyX-Code
+# dip: Fault dip at trace point (degrees)
+\end_layout
+
+\begin_layout LyX-Code
+# lame_mu: Lame's mu parameter at trace point (Pascals)
+\end_layout
+
+\begin_layout LyX-Code
+# lame_lambda: Lame's lambda parameter at trace point (Pascals)
+\end_layout
+
+\begin_layout LyX-Code
+0 0 0 12000 1 0 180 90 3e+10 3.2e+10
+\end_layout
+
+\begin_layout LyX-Code
+0 0.1078 0 12000 1 0 180 90 3e+10 3.2e+10 
+\end_layout
+
+\begin_layout Standard
+The first non-comment line in this file gives the fault ID, number of trace
+ points, and fault name.
+ In this example, the fault is named "One_Fault_Example".
+ The remaining non-comment lines give the fault characteristics at each
+ trace point.
+ This file defines two trace points, the first at latitude/longitude (0,0)
+ and the second at (0, 0.1078), with both at altitude 0.
+ At each point the fault extends 12,000 meters down and has a slip rate
+ of 1 cm/year with 0 aseismicity.
+ The fault is right lateral strike slip (rake of 180°, dip of 90°).
+ The Lamé parameters of 
+\begin_inset Formula $\mu=3e10$
+\end_inset
+
+ and 
+\begin_inset Formula $\lambda=3.2e10$
+\end_inset
+
+ indicate the material properties of the fault.
+\end_layout
+
+\begin_layout Standard
+Given this fault definition we can create a mesh which fits within the fault
+ dimensions.
+ Each fault is meshed by specifying the fault trace file in the format described
+ above, and a fault element size.
+ Currently all fault elements in Virtual California are square though future
+ versions will allow triangulare elements.
+ Furthermore, all elements of a single fault are meshed at the same resolution.
+ This means that if the meshing resolution is not a perfect multiple of
+ the trace length or depth at a given point, the meshed elements will not
+ completely cover the trace.
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:trace_mesh_example"
+
+\end_inset
+
+ shows this for an example fault trace consisting of 4 trace points, where
+ the fault trace is represented by a dashed line and the meshed elements
+ represented by red segments.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:exact_trace_mesh"
+
+\end_inset
+
+ shows the meshed model on this fault with elements that match the lengths
+ between the trace points.
+ Because the distance between trace points is exactly a multiple of the
+ element size, the meshed elements exactly cover the fault trace.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:offset_trace_mesh"
+
+\end_inset
+
+ shows the same fault trace with smaller meshed elements.
+ The first element follows the trace but the second element deviates in
+ order to fit the meshed element along the trace.
+ In practice, this discrepancy is usually not a big issue because fault
+ traces are not significantly non-linear.
+ Also, as elements become smaller relative to the distance between trace
+ points this discrepancy becomes smaller.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename graphics/FaultTrace3elem.pdf
+	width 48text%
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:exact_trace_mesh"
+
+\end_inset
+
+Using an element size that exactly aligns with the trace, the generated
+ elements will exactly follow the trace.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename graphics/FaultTrace4elem.pdf
+	width 48text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:offset_trace_mesh"
+
+\end_inset
+
+A slightly smaller element size results in a mesh that does not exactly
+ follow the trace.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:trace_mesh_example"
+
+\end_inset
+
+An example of how element size will affect the tracking of the mesh along
+ a fault trace.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+When creating a meshed element along a fault trace it is necessary to assign
+ characteristics to the element such as slip rate, aseismic slip, rake,
+ dip, and Lamé parameters.
+ These are determined by linear interpolation of the fault trace values
+ at the midpoint of the meshed element.
+\end_layout
+
+\begin_layout Standard
+The use of linear interpolation for values between fault trace points also
+ means that if the meshed elements are larger than the distance between
+ fault trace points and there is significant variation between trace point
+ characteristics, then this variation may be lost during the meshing process.
+ In general it is recommended to use an element size smaller than the smallest
+ distance between fault trace points unless there are memory or computing
+ constraints.
+ In the event that the meshing process skips a trace point because of overly
+ large element size, a warning will be output.
+ Appropriate element size is further discussed in Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:element_size_discussion"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename graphics/single_fault_6k.jpg
+	height 5cm
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:mesh6km"
+
+\end_inset
+
+Example 12km x 12km fault meshed at 6km resolution giving 2 x 2 = 4 total
+ elements.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename graphics/single_fault_4k.jpg
+	height 5cm
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:mesh4km"
+
+\end_inset
+
+Example 12km x 12km fault meshed at 4km element resolution giving 3 x 3
+ = 9 total elements.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:meshing-example"
+
+\end_inset
+
+A demonstration of meshing with different resolutions.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+(Describe how to run meshing program)
+\end_layout
+
+\begin_layout Standard
+The meshing program and related parameters are described in Section XXX.
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:meshing-example"
+
+\end_inset
+
+ shows the result of meshing the One_Fault_Example trace with different
+ element resolutions.
+ Figures 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:mesh6km"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:mesh4km"
+
+\end_inset
+
+ show the KML output of the program in Google Earth (citation).
+ Since the fault is defined to start at latitude/longitude (0,0) it will
+ appear in the middle of the Atlantic ocean.
+ In output KML files the depth is reversed so faults are visible above the
+ surface.
+ When performing simulations with realistic fault systems it is better to
+ use actual fault latitude/longitude in the traces to help visualize the
+ simulation results.
+\end_layout
+
+\begin_layout Section
+Element Stress Interactions
+\end_layout
+
+\begin_layout Standard
+Unlike actual fault systems where the fault geometry is dynamic over long
+ time periods, Virtual California simplifies calculations assuming a geometrical
+ly static fault system.
+ In this way Virtual California is intended to explore seismicity in fault
+ systems as they appear today rather than attempting to model their long
+ term evolution.
+ Back slip is used to model the effects of stress buildup and release along
+ elements approximating the fault plane.
+ In a back slip model, the equilibrium and initial positions of an element
+ are the same, thus when an element fails it moves towards the original
+ position and the fault system geometry remains static.
+\end_layout
+
+\begin_layout Subsection
+Green's Functions
+\end_layout
+
+\begin_layout Standard
+Interactions between fault elements depend on the relative position and
+ orientation of each element, and are calculated using stress Green's functions
+ at the start of the simulation.
+ The change in stress at a location 
+\begin_inset Formula $x$
+\end_inset
+
+ due to movement of all elements is given by 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Rundle2006vc"
+
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\sigma_{ij}(x,t)=\int dx_{k}^{'}T_{ij}^{kl}(x-x')s_{l}(x',t)\label{eq:stress_field}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $s_{l}(x',t)$
+\end_inset
+
+ is the three-dimensional slip density of element 
+\begin_inset Formula $l$
+\end_inset
+
+, 
+\begin_inset Formula $T_{ij}^{kl}(x-x')$
+\end_inset
+
+ is the Green's function tensor, and 
+\begin_inset Formula $l$
+\end_inset
+
+ goes over all elements.
+ In Virtual California this field is evaluated only at the center of elements
+ and slip is assumed to be uniform across the surface of an element and
+ along the element rake angle defined in the model.
+ Under these conditions equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:stress_field"
+
+\end_inset
+
+ simplifies to:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\sigma_{ij}^{A}(t)=\sum T_{ij}^{AB}s_{B}(t)\label{eq:simple_stress_field}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where B runs over all elements.
+ Finally, since Virtual California only uses the shear stress along the
+ element rake vector and normal stress perpendicular to the element, the
+ tensor 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $T_{ij}^{AB}$
+\end_inset
+
+ reduces to 
+\begin_inset Formula $T_{s}$
+\end_inset
+
+ for shear stresses and 
+\begin_inset Formula $T_{n}$
+\end_inset
+
+ for normal stresses.
+ This means the shear and normal stresses on an element in Virtual California
+ are calculated as:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\sigma_{s}^{A}(t)=\sum T_{s}^{AB}s_{B}(t)\label{eq:shear_stress_sum}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\sigma_{n}^{A}(t)=\sum T_{n}^{AB}s_{B}(t)\label{eq:norm_stress_sum}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Thus, for a fault model with 
+\begin_inset Formula $N$
+\end_inset
+
+ elements Virtual California requires two 
+\begin_inset Formula $N\times N$
+\end_inset
+
+ element matrices to represent all interactions.
+ These are also referred to as the Green's function matrices.
+ The actual values for the matrix entries are calculated using Okada's half-spac
+e deformation equations 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Okada01041992"
+
+\end_inset
+
+.
+ Examples of the output generated by the Virtual California implementation
+ of the Okada Green's functions are shown in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:okada_stress_field"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename graphics/sigma_s_front.png
+	lyxscale 30
+	width 44text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Front view
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename graphics/sigma_s_top.png
+	lyxscale 30
+	width 44text%
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Top view
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+The shear stress field 
+\begin_inset Formula $\sigma_{xy}$
+\end_inset
+
+ created by horizontal backslip as viewed from the front and top of an element.
+ The direction of backslip is indicated by the arrows.
+ Tan color indicates 
+\begin_inset Formula $\sigma_{xy}>0$
+\end_inset
+
+ and blue indicates 
+\begin_inset Formula $\sigma_{xy}<0$
+\end_inset
+
+.
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:okada_stress_field"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Event Transition Time
+\end_layout
+
+\begin_layout Standard
+Virtual California uses a combined static-dynamic friction law to calculate
+ element failures.
+ This law is based on the Coulomb failure function (CFF):
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+CFF^{A}(t)=\sigma_{s}^{A}(t)-\mu_{s}^{A}\sigma_{n}^{A}(t)\label{eq:cff_function}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $\mu_{s}^{A}$
+\end_inset
+
+ is the static coefficient of friction on element 
+\begin_inset Formula $A$
+\end_inset
+
+ based on model element strengths.
+ During long term stress accumulation, an element is defined to fail at
+ time 
+\begin_inset Formula $t_{f}$
+\end_inset
+
+ when 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $CFF^{A}(t_{f})=0$
+\end_inset
+
+, which is referred to as static failure.
+ At this point the simulation changes to the rupture event model described
+ below.
+\end_layout
+
+\begin_layout Standard
+Given the change in stress over time it is relatively straightforward to
+ calculate the time to failure for an element.
+ Since effective long term slip rates during stress accumulation are assumed
+ to be constant the change in CFF over time is governed by the equation:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\frac{dCFF^{A}}{dt}=(\sigma_{s}^{A}-\mu_{s}^{A}\sigma_{n}^{A})+\alpha T_{\alpha}^{A}\label{eq:cff_change}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ represents the fraction of fault slip that is aseismic and 
+\begin_inset Formula $T_{\alpha}^{A}=\frac{CFF^{A}T^{AA}}{rec}$
+\end_inset
+
+ represents the instanteous change in CFF due to aseismic slip.
+ Aseismic slip on an element transmits stress to other elements but not
+ on the element itself.
+ If 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ is 0, the equation simplifies to:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+t_{f}=t_{0}+\frac{CFF^{A}}{(\sigma_{s}^{A}-\mu_{s}^{A}\sigma_{n}^{A})}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $t_{0}$
+\end_inset
+
+ is the starting time of long term stress accumulation in the system.
+ If 
+\begin_inset Formula $\alpha>0$
+\end_inset
+
+ then Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:cff_change"
+
+\end_inset
+
+ can be solved analytically to yield:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+t_{f}=-log((\sigma_{s}^{A}-\mu_{s}^{A}\sigma_{n}^{A})+
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Rupture Event Model
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement th
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename graphics/CFF_1.pdf
+	width 48text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+CFF vs.
+ time for a series of stress buildup and rupture events.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename graphics/CFF_2.pdf
+	width 48text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+CFF vs.
+ sweeps for the event at t=593
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Top: The CFF for each of the 48 elements comprising the Parkfield section
+ of the San Andreas fault.
+ Drops in CFF correspond to stress release in events, with larger events
+ consisting of many elements releasing stress.
+ Bottom: detail of rupture sweeps from the event at t=593.
+ The trigger element is shown bold.
+ Note that elements may experience multiple failures, such as the trigger
+ element failing during sweeps 0, 7, and 11.
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:cff_example_history"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+During rupture propagation the first element to fail slips back towards
+ the equilibrium position.
+ The amount of slip during the initial failure, 
+\begin_inset Formula $\Delta s$
+\end_inset
+
+, is related to the stress drop defined for the element in the model, 
+\begin_inset Formula $\Delta\sigma$
+\end_inset
+
+, by 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Rundle2006vc"
+
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+\Delta s & = & \frac{1}{K_{L}}\frac{N_{ef}}{S_{t}}(\Delta\sigma-CFF),\mbox{if }N_{ef}\leq S_{t}\label{eq:sst_one}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+\Delta s & = & \frac{1}{K_{L}}(\Delta\sigma-CFF),\mbox{otherwise}.\label{eq:sst_two}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $K_{L}$
+\end_inset
+
+ is the element's stiffness or self-stress defined as 
+\begin_inset Formula $K_{L}=T_{s}^{AA}-\mu_{s}^{A}T_{n}^{AA}$
+\end_inset
+
+.
+ The factor 
+\begin_inset Formula $\frac{N_{ef}}{S_{t}}$
+\end_inset
+
+ captures the current size of the rupture with 
+\begin_inset Formula $N_{ef}$
+\end_inset
+
+ representing the number of failed elements on the currently rupturing fault
+ and 
+\begin_inset Formula $S_{t}$
+\end_inset
+
+ representing the slip-scaling threshold parameter.
+ This factor prevents small ruptures from excessively slipping.
+\end_layout
+
+\begin_layout Standard
+Once the slip is calculated for one or more elements, a new stress state
+ for the entire system is calculated using Equations 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:shear_stress_sum"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:norm_stress_sum"
+
+\end_inset
+
+.
+ Additional elements will fail if their CFF = 0 (static failure).
+ To better model rupture propagation dynamic failure is also allowed during
+ rupture events.
+ Dynamic failure allows elements on the same fault and physically nearby
+ to failed elements to themselves fail at a lower stress level than the
+ static failure criterion.
+ This dynamic failure is based on the increase in stress during the rupture
+ event.
+ An element experiences dynamic failure if it is on the same fault as an
+ already failed element and satisfies:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\frac{CFF_{init}-CFF_{final}}{CFF_{init}}>\eta\label{eq:dynamic_trigger}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $\eta$
+\end_inset
+
+ is a user defined dynamic triggering parameter either for the whole system
+ or uniquely defined for each element.
+ This parameter approximates the stress intensity factor at the tip of a
+ propagating rupture.
+\end_layout
+
+\begin_layout Standard
+During rupture propagation, elements that have not completely slipped back
+ to equilibrium may fail again (potentially multiple times) and release
+ more stress.
+ However, elements may not slip away from equilibrium meaning they cannot
+ absorb stress released by other failed elements.
+ This reflects the fact that failed elements may not heal during a rupture
+ but also may not release all accumulated stress immediately.
+ It is also important to note that an element may not release all accumulated
+ stress during a rupture, due to the slip-scaling threshold (Equations 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:sst_one"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:sst_two"
+
+\end_inset
+
+) and dynamic triggering (Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:dynamic_trigger"
+
+\end_inset
+
+), as well as the stress state of all elements at the start of rupture.
+ For example, if all elements are in a high stress state then a small initial
+ rupture can quickly propagate and become a large stress release event,
+ whereas if most elements are in a low stress state then a large initial
+ rupture may quickly stop propagating and release relatively little stress.
+\end_layout
+
+\begin_layout Standard
+Examples of stress accumulation and release over multiple phases of long
+ term stress accumulation and rupture events are shown in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:cff_example_history"
+
+\end_inset
+
+.
+ The first figure shows how a single element failure leads to a rupture
+ spanning multiple elements and how stress builds up and releases in cycles
+ over time.
+ The second figure shows how elements may fail multiple times during different
+ sweeps in an event, but do not accumulate additional stress after failing.
+\end_layout
+
+\begin_layout Section
+Simulation Flow
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement th
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename graphics/VCFlow.pdf
+	width 99text%
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Simulation flow of Virtual California.
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:simulation_flow"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:simulation_flow"
+
+\end_inset
+
+ shows the flow of simulation in Virtual California.
+ The simulation begins by reading in a set of faults and converting them
+ to the internal data structures.
+ When running a parallel simulation, these are partitioned over multiple
+ processes to ensure that each process is responsible for roughly an equal
+ number of elements and that elements on the same processor are on the same
+ fault or geographically close to each other.
+ Next, each processor calculates the stress Green's functions on the local
+ elements for all other elements in the model or loads precomputed Green's
+ functions from a file.
+ This comprises the initialization phase of the simulation shown in green
+ in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:simulation_flow"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The core of the simulation consists of repeated cycling between two phases
+ until the end of the simulation time.
+ The first phase, shown in blue, calculates the long term stress buildup
+ and time to first element failure in the system based on Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:cff_function"
+
+\end_inset
+
+.
+ In parallel simulations this time is calculated locally on each process
+ then reduced to a global time to failure.
+\end_layout
+
+\begin_layout Standard
+The second phase is the rupture propagation phase, shown in purple in Figure
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:simulation_flow"
+
+\end_inset
+
+.
+ Virtual California uses a cellular automata style approach to modeling
+ rupture propagation.
+ The rupture phase does not involve time domain solutions to differential
+ equations, but rather iterative calculations of stress and element failure
+ to approximate a rupture propagating through the fault system.
+\end_layout
+
+\begin_layout Chapter
+Getting Started and Installation
+\begin_inset CommandInset label
+LatexCommand label
+name "cha:Installation"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Standard
+Virtual California and QuakeLib have been tested on Linux, Mac OS X and
+ several other UNIX based platforms.
+ Virtual California has also been successfully run in parallel on several
+ XSEDE systems and commodity cluster systems.
+ You should have no problems compiling, installing, and running Virtual
+ California on most Unix-like systems.
+ Virtual California is currently only available as a source package that
+ users must compile on their own.
+ The following sections will lead you through the installation process.
+\end_layout
+
+\begin_layout Section
+Getting Help
+\end_layout
+
+\begin_layout Standard
+For help, send e-mail to the CIG ????????? Mailing List 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+cig-mc@geodynamics.org
+\end_layout
+
+\end_inset
+
+.
+ You can subscribe to the Mailing List and view archived discussion at the
+ Geodynamics Mail Lists web page 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+geodynamics.org/cig/lists
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+System Requirements
+\end_layout
+
+\begin_layout Standard
+Installation of Virtual California requires the following:
+\end_layout
+
+\begin_layout Itemize
+A C++ compiler
+\end_layout
+
+\begin_layout Itemize
+An MPI library
+\end_layout
+
+\begin_layout Itemize
+OpenMP
+\end_layout
+
+\begin_layout Itemize
+HDF5
+\end_layout
+
+\begin_layout Itemize
+SWIG
+\end_layout
+
+\begin_layout Itemize
+CMAKE
+\end_layout
+
+\begin_layout Standard
+You can install the first two dependencies in one command on most Linux
+ machines.
+ On Debian, Ubuntu or similar distributions, use this command (as 
+\family typewriter
+root
+\family default
+):
+\end_layout
+
+\begin_layout LyX-Code
+$ apt-get install build-essential python-dev 
+\backslash
+
+\begin_inset Newline newline
+\end_inset
+
+          openmpi-dev openmpi-bin
+\end_layout
+
+\begin_layout Standard
+On Red Hat, Fedora, CentOS, OpenSuSE or similar distributions, use this
+ command (as 
+\family typewriter
+root
+\family default
+):
+\end_layout
+
+\begin_layout LyX-Code
+$ yum install make automake gcc gcc-c++ kernel-devel 
+\backslash
+
+\begin_inset Newline newline
+\end_inset
+
+      openmpi openmpi-libs openmpi-devel
+\end_layout
+
+\begin_layout Standard
+You will need to install a C compiler, MPI library, OpenMP, HDF5, SWIG,
+ and CMAKE (see sections below).
+\end_layout
+
+\begin_layout Standard
+MPI installations are typically configured for a particular compiler, and
+ provide a special wrapper command to invoke the right compiler.
+ Therefore, the choice of MPI implementation often determines which C compiler
+ to use.
+\end_layout
+
+\begin_layout Subsection
+C Compiler
+\end_layout
+
+\begin_layout Standard
+On Unix or Linux systems, there is a high likelihood that a usable C compiler
+ is already installed.
+ To check, type 
+\family typewriter
+cc
+\family default
+ at the shell prompt:
+\end_layout
+
+\begin_layout LyX-Code
+$ cc
+\end_layout
+
+\begin_layout LyX-Code
+cc: no input files
+\end_layout
+
+\begin_layout LyX-Code
+$
+\end_layout
+
+\begin_layout Standard
+On Linux, if the 
+\family typewriter
+cc
+\family default
+ command is not found, install GCC using the package manager for your distributi
+on.
+\end_layout
+
+\begin_layout Standard
+The Mac OS X version of GCC is included in a software development suite
+ called Xcode.
+ Xcode is available as a free download at the Apple Developer Connection
+ 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+developer.apple.com
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Quote
+
+\color red
+Warning:
+\color none
+ 
+\color black
+If you are using an Intel compiler on an Itanium CPU, do not use the
+\color none
+ 
+\family typewriter
+\color black
+-O3
+\family default
+\color none
+ 
+\color black
+optimization flag as reports indicate that this optimization level will
+ generate incorrect codes.
+ For any compiler, you should always be careful about the correctness of
+ the compiled codes when using an
+\color none
+ 
+\family typewriter
+\color black
+-O3
+\family default
+\color none
+ 
+\color black
+or higher optimization level.
+\end_layout
+
+\begin_layout Subsection
+MPI Library 
+\end_layout
+
+\begin_layout Standard
+Virtual California requires a library which implements the MPI standard
+ (either version 1 or 2).
+ Several free, open-source implementations of MPI are available.
+\end_layout
+
+\begin_layout Standard
+A popular choice is MPICH 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+www-unix.mcs.anl.gov/mpi/mpich
+\end_layout
+
+\end_inset
+
+.
+ Other choices include LAM/MPI 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+www.lam-mpi.org
+\end_layout
+
+\end_inset
+
+ and Open MPI 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+www.open-mpi.org
+\end_layout
+
+\end_inset
+
+.
+ Installing MPI from source involves walking through the standard GNU build
+ procedure (
+\family typewriter
+configure && make && make install
+\family default
+) while logged in as 
+\family typewriter
+root
+\family default
+.
+\end_layout
+
+\begin_layout Standard
+Linux users may have a prebuilt MPI package available for their distribution.
+ On Mac OS X, the Fink package manager offers a prepackaged version of LAM/MPI
+ 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+www.lam-mpi.org
+\end_layout
+
+\end_inset
+
+; so if you have Fink 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+fink.sourceforge.net
+\end_layout
+
+\end_inset
+
+ installed, simply enter the following command from a Terminal window to
+ install LAM/MPI:
+\end_layout
+
+\begin_layout LyX-Code
+$ fink install lammpi lammpi-dev
+\end_layout
+
+\begin_layout Subsubsection
+MPI C Compiler Command
+\end_layout
+
+\begin_layout Standard
+Once you have an MPI library installed, make sure its C complier command
+ is on your PATH.
+ Unfortunately, the name of this command varies from one MPI implementation
+ to the next.
+ The Virtual California configuration script searches for the following
+ MPI C command names:
+\end_layout
+
+\begin_layout LyX-Code
+mpicc hcc mpcc mpcc_r mpxlc cmpicc
+\end_layout
+
+\begin_layout Subsection
+Remaining Dependencies
+\end_layout
+
+\begin_layout Standard
+You will need to also install OpenMP, HDF5, SWIG, and CMAKE.
+ 
+\end_layout
+
+\begin_layout Section
+Downloading and Unpacking Source
+\end_layout
+
+\begin_layout Standard
+To obtain Virtual California, go to the Geodynamics Software Packages web
+ page 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+geodynamics.org/cig/software/packages/mc/citcoms
+\end_layout
+
+\end_inset
+
+, download the source archive and unpack it using the 
+\family typewriter
+tar
+\family default
+ command: 
+\end_layout
+
+\begin_layout LyX-Code
+$ tar xzf vc_xxxxxxxx.tar.gz
+\end_layout
+
+\begin_layout Standard
+If you don't have GNU Tar, try the following command instead: 
+\end_layout
+
+\begin_layout LyX-Code
+$ gunzip -c vc_xxxxxxxx.tar.gz | tar xf -
+\end_layout
+
+\begin_layout Section
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Install"
+
+\end_inset
+
+Installation Procedure
+\end_layout
+
+\begin_layout Standard
+After unpacking the source, use the following procedure to install Virtual
+ California:
+\end_layout
+
+\begin_layout Enumerate
+Navigate (i.e., 
+\family typewriter
+cd
+\family default
+) to the directory containing the Virtual California source
+\family typewriter
+.
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+$ cd Virtual_California_xxxxxx
+\end_layout
+
+\begin_layout Enumerate
+Type .
+\family typewriter
+/configure
+\family default
+ to configure the package for your system
+\family typewriter
+.
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+$ ./configure
+\end_layout
+
+\begin_layout Enumerate
+Navigate to the sub-directory called 
+\begin_inset Quotes sld
+\end_inset
+
+build
+\begin_inset Quotes srd
+\end_inset
+
+
+\family typewriter
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+$ cd build
+\end_layout
+
+\begin_layout Enumerate
+Type 
+\family typewriter
+make
+\family default
+ to build the package.
+\family typewriter
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+$ make
+\end_layout
+
+\begin_layout Standard
+If you are content to run Virtual California from the build directory, then
+ you are done.
+ Upon successful completion, the 
+\family typewriter
+make
+\family default
+ command creates a script called 
+\family typewriter
+vc
+\family default
+ in the 
+\family typewriter
+xxxxx
+\family default
+ subdirectory; this is the script you will use to run Virtual California.
+ You may wish to add the 
+\family typewriter
+bin
+\family default
+ directory to your 
+\family typewriter
+PATH
+\family default
+.
+\end_layout
+
+\begin_layout Standard
+For more details about 
+\family typewriter
+configure
+\family default
+, see Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Configuration"
+
+\end_inset
+
+ below.
+\end_layout
+
+\begin_layout Subsection
+Windows
+\end_layout
+
+\begin_layout Standard
+This is untested so use at your own risk!
+\end_layout
+
+\begin_layout Standard
+If using Cygwin: 
+\end_layout
+
+\begin_layout LyX-Code
+$ ./configure make make install
+\end_layout
+
+\begin_layout Standard
+If using Visual Studio: 
+\end_layout
+
+\begin_layout Standard
+Follow the directions at the link for running CMake on Windows:
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+opentissue.org/wikitissue/index.php/Using_CMake
+\end_layout
+
+\end_inset
+
+, 
+\end_layout
+
+\begin_layout Standard
+NOTE: Select the "build" folder as the location to build the binaries.
+\end_layout
+
+\begin_layout Subsection
+Mac OS X
+\end_layout
+
+\begin_layout Standard
+This is untested so use at your own risk! With the OS X default python:
+ 
+\end_layout
+
+\begin_layout LyX-Code
+$ ./configure
+\end_layout
+
+\begin_layout LyX-Code
+$ cd build
+\end_layout
+
+\begin_layout LyX-Code
+$ make
+\end_layout
+
+\begin_layout LyX-Code
+$ sudo make install
+\end_layout
+
+\begin_layout Standard
+If you have a third party installation of python (ie.
+ from homebrew or macports) Virtual California will build and install, but
+ the python quakelib module may not work.
+ This is because cmake builds against the system python.
+ To fix this do the following: 
+\end_layout
+
+\begin_layout LyX-Code
+$ ./configure
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+cmake will output the following: 
+\end_layout
+
+\begin_layout LyX-Code
+"-- Found PythonLibs: /usr/lib/libpythonx.x.dylib"
+\end_layout
+
+\begin_layout LyX-Code
+where "x.x" is a version number (ie.
+ "2.7").
+ 
+\end_layout
+
+\begin_layout LyX-Code
+We need to move this file and create a link to the correct python.
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+$ sudo mv /usr/lib/libpythonx.x.dylib /usr/lib/libpythonx.x.sys.dylib
+\end_layout
+
+\begin_layout LyX-Code
+$ which python | xargs otool -L
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+This will output /the/path/to/python/library.
+ 
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+$ sudo ln -s /the/path/to/python/library /usr/lib/libpythonx.x.dylib 
+\end_layout
+
+\begin_layout LyX-Code
+$ rm -r build/
+\end_layout
+
+\begin_layout LyX-Code
+$ ./configure
+\end_layout
+
+\begin_layout LyX-Code
+$ cd build
+\end_layout
+
+\begin_layout LyX-Code
+$ make
+\end_layout
+
+\begin_layout LyX-Code
+$ sudo make install
+\end_layout
+
+\begin_layout Subsection
+Linux
+\end_layout
+
+\begin_layout Standard
+This is untested so use at your own risk!
+\end_layout
+
+\begin_layout LyX-Code
+$ ./configure
+\end_layout
+
+\begin_layout LyX-Code
+$ cd build
+\end_layout
+
+\begin_layout LyX-Code
+$ make
+\end_layout
+
+\begin_layout LyX-Code
+$ sudo make install
+\end_layout
+
+\begin_layout Subsection
+Install Locations
+\end_layout
+
+\begin_layout Standard
+Quakelib libraries will be installed in standard library directories based
+ on your system configuration.
+ Cmake will generate a file named "install_manifest.txt" in the build directory
+ detailing the locations of installed files.
+ The Virtual California binary is build/src/vc.
+\end_layout
+
+\begin_layout Section
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Configuration"
+
+\end_inset
+
+Configuration
+\end_layout
+
+\begin_layout Standard
+The 
+\family typewriter
+configure
+\family default
+ script checks for various system features.
+ As it runs, it prints messages informing you of which features it is checking
+ for.
+ Upon successful completion, it generates a 
+\family typewriter
+Makefile
+\family default
+ in each source directory of the package.
+ It also generates a 
+\family typewriter
+config.h
+\family default
+ header file, which contains system-dependent definitions.
+ 
+\end_layout
+
+\begin_layout Standard
+The 
+\family typewriter
+configure
+\family default
+ script will attempt to guess the correct values of various installation
+ parameters.
+ In the event that the default values used by 
+\family typewriter
+configure
+\family default
+ are incorrect for your system, or 
+\family typewriter
+configure
+\family default
+ is unable to guess the value of a certain parameter, you may have to specify
+ the correct value by hand.
+\end_layout
+
+\begin_layout Quote
+
+\series bold
+Important:
+\series default
+ If the 
+\family typewriter
+configure
+\family default
+ script fails, and you don't know what went wrong, examine the log file
+ 
+\family typewriter
+config.log
+\family default
+.
+ This file contains a detailed transcript of all the checks 
+\family typewriter
+configure
+\family default
+ performed.
+ More importantly, it includes the error output (if any) from your compiler.
+ When seeking help for 
+\family typewriter
+configure
+\family default
+ failures on the CIG XXXXXXXXX Mailing List 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+cig-mc@geodynamics.org
+\end_layout
+
+\end_inset
+
+, please send 
+\family typewriter
+config.log
+\family default
+ as an attachment.
+\end_layout
+
+\begin_layout Standard
+Upon successful completion, 
+\family typewriter
+configure
+\family default
+ will print a brief configuration summary.
+ 
+\end_layout
+
+\begin_layout Subsection
+Environment Variables
+\end_layout
+
+\begin_layout Standard
+The following is a summary of the variables and options that are important
+ when installing Virtual California.
+ Environment variables may be specified as arguments to 
+\family typewriter
+configure
+\family default
+, e.g.,
+\end_layout
+
+\begin_layout LyX-Code
+$ ./configure CC=icc # use the Intel compiler
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Float table
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="3" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="1in">
+<column alignment="left" valignment="top" width="3.5in">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Variable
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Description
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+CC
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+C compiler command.
+ This is usually set to the name of an MPI wrapper command, e.g.,
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+./configure 
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+CC=/opt/mpich-1.2.6/bin/mpicc
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+CXX
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+C++ compiler command.
+ This is usually set to the name of an MPI wrapper command, e.g.,
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+./configure 
+\backslash
+ 
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+CC=g++
+\end_layout
+
+\begin_layout Plain Layout
+or 
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+./configure 
+\backslash
+ 
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+CC=mpicxx
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:MPI-Configuration"
+
+\end_inset
+
+MPI Configuration
+\end_layout
+
+\begin_layout Standard
+By default, 
+\family typewriter
+configure
+\family default
+ will search for a C compiler using your 
+\family typewriter
+PATH
+\family default
+ environment variable.
+ It prefers MPI wrapper commands (such as 
+\family typewriter
+mpicc
+\family default
+) to ordinary compiler commands (such as 
+\family typewriter
+cc
+\family default
+ or 
+\family typewriter
+gcc
+\family default
+).
+ You may specify the compiler command name manually using the 
+\family typewriter
+CC
+\family default
+ variable:
+\end_layout
+
+\begin_layout LyX-Code
+$ ./configure CC=/opt/mpich-1.2.6/bin/mpicc
+\end_layout
+
+\begin_layout Standard
+The 
+\family typewriter
+configure
+\family default
+ script will test for the presence of the MPI header (
+\family typewriter
+mpi.h
+\family default
+) and an MPI library using the C compiler command.
+ If 
+\family typewriter
+CC
+\family default
+ is set to an MPI wrapper command such as 
+\family typewriter
+mpicc
+\family default
+, and/or the MPI header and library files are installed in a standard location
+ (i.e., 
+\family typewriter
+/usr/include
+\family default
+ and 
+\family typewriter
+/usr/lib
+\family default
+), these 
+\family typewriter
+configure
+\family default
+ tests should succeed without difficulty.
+\end_layout
+
+\begin_layout Subsection
+Additional Tools
+\end_layout
+
+\begin_layout Standard
+While the following software is not necessary for the normal operation of
+ Virtual California, you may find it useful for accessing Virtual California
+ data in HDF5 files.
+\end_layout
+
+\begin_layout Subsubsection
+NumPy
+\end_layout
+
+\begin_layout Standard
+NumPy is an extension to Python which adds support for multi-dimensional
+ arrays for use in scientific computing.
+ You may download NumPy from the NumPy home page 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+numpy.scipy.org
+\end_layout
+
+\end_inset
+
+.
+ To compile and install this extension, download it and issue the following
+ commands after extracting it:
+\end_layout
+
+\begin_layout LyX-Code
+$ cd numpy-1.0
+\end_layout
+
+\begin_layout LyX-Code
+$ python setup.py install --prefix=$HOME/cig
+\end_layout
+
+\begin_layout Standard
+Alternatively, under Debian Linux you can install the 
+\family typewriter
+python-numpy
+\family default
+ package.
+ On Gentoo Linux, NumPy is available in the 
+\family typewriter
+dev-python/numpy
+\family default
+ ebuild.
+\end_layout
+
+\begin_layout Subsubsection
+PyTables
+\end_layout
+
+\begin_layout Standard
+PyTables is a package for managing hierarchical datasets and designed to
+ efficiently and easily cope with extremely large amounts of data.
+ PyTables is built on top of the HDF5 library, using the Python language
+ and the NumPy package.
+ After checking its dependencies, you may download PyTables from the PyTables
+ home page 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+pytables.org
+\end_layout
+
+\end_inset
+
+.
+ To install, follow instructions on the installation page 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://pytables.github.io/usersguide/installation.html
+\end_layout
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+HDFView
+\end_layout
+
+\begin_layout Standard
+HDFView is a visual tool written in Java for browsing and editing HDF5 files.
+ You may download it from the HDFView home page 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+hdf.ncsa.uiuc.edu/hdf-java-html/hdfview
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Testing
+\end_layout
+
+\begin_layout Standard
+After following the instructions in Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Install"
+
+\end_inset
+
+, you should run the install tests.
+ From within the 'test' directory just run the 'run_test' script:
+\end_layout
+
+\begin_layout LyX-Code
+$ ./run_test
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+Virtual California will run a small simulation creating the files:
+\end_layout
+
+\begin_layout LyX-Code
+test_greens.h5 - The interaction matrices.
+\end_layout
+
+\begin_layout LyX-Code
+test_dyn-0-5_st-5.h5 - The simulation file.
+\end_layout
+
+\begin_layout LyX-Code
+block_info.dat - A element mapping file.
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+
+\series bold
+TODO: Update with Eric's unit tests.
+\end_layout
+
+\begin_layout Chapter
+Running VC
+\begin_inset CommandInset label
+LatexCommand label
+name "cha:Cookbooks"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Standard
+Now that installation and testing is finished, let's get into the specifics
+ of building a fault model, compiling Virtual California, and finally running
+ a custom simulation.
+ The following chapter serves to illustrate the main features of a Virtual
+ California simulation, and will prepare the user for the explicit examples
+ in Chapter 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "cha:Cookbooks"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The only input needed to run a Virtual California simulation is the fault
+ geometry and friction parameters
+\end_layout
+
+\begin_layout Section
+Setting Simulation Parameters
+\end_layout
+
+\begin_layout Subsection
+Units
+\end_layout
+
+\begin_layout Standard
+All units used in calculations, unless otherwise specified, adhere to the
+ metric system (M-K-S).
+\end_layout
+
+\begin_layout Section
+Simulation Performance and Scaling
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:element_size_discussion"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The size of the meshed elements will affect both simulation accuracy and
+ computational resource requirements.
+ The appropriate size of fault elements for a given simulation depends on
+ the desired minimum earthquake magnitude and the available computational
+ resources.
+ 
+\end_layout
+
+\begin_layout Subsection
+Element Size and Minimum Magnitude
+\end_layout
+
+\begin_layout Standard
+The relationship between element size and minimum magnitude is given by:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+M_{min}=\frac{2}{3}log_{10}(1e7\mu sL^{2})-10.7
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $\mu$
+\end_inset
+
+ is the Lamé parameter, s is the minimum slip distance, and 
+\begin_inset Formula $L$
+\end_inset
+
+ is the element size in meters.
+ The minimum slip distance, s, will depend on the orientation of the element,
+ the total fault size, and the interaction with other elements in the system,
+ but will generally range from approximately 0.1 to 1.0 meters.
+ For example, for the 12km x 12km fault described in Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:define_mesh_faults"
+
+\end_inset
+
+ the minimum slip distance is 0.3 meters.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:min_magnitude_elem_size"
+
+\end_inset
+
+ shows the relationship in VC between element size and minimum earthquake
+ magnitude.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename graphics/Heien_Sachs_12_number_of_operations.pdf
+	width 48text%
+	BoundingBox 0bp -22bp 160bp 44bp
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:operations_per_element"
+
+\end_inset
+
+Operations required to calculate a single element-element stress interaction.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename graphics/min_magnitude.pdf
+	width 48text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:min_magnitude_elem_size"
+
+\end_inset
+
+Element size versus minimum event magnitude.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Number of elements determines computational cost.
+ Element size governs simulated earthquake magnitude range.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Element Size and Required Memory
+\end_layout
+
+\begin_layout Standard
+The number of elements in a model will also affect the required memory.
+ Since VC uses a Barnes-Hut style approximation algorithm for fault interaction
+ the actual memory required will depend on the accuracy of the approximation.
+ For non-approximated fault interaction in a model with 
+\begin_inset Formula $N$
+\end_inset
+
+ elements, the memory requirements are:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Memory=16N^{2}bytes
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Because the degree of approximation possible with Barnes-Hut will vary depending
+ on the system geometry it is not possible to give a function for memory
+ requirements.
+ For the UCERF model of all major faults in California (cite) we find the
+ following equation gives a reasonable estimate of memory requirements for
+ a given Barnes-Hut 
+\begin_inset Formula $\theta$
+\end_inset
+
+ parameter and number of elements 
+\begin_inset Formula $N$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Memory=XXXbytes
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename graphics/Heien_Sachs_12_elements_vs_memory.pdf
+	width 48text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:memory_vs_element_size_1"
+
+\end_inset
+
+Element size determines computational regime.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename graphics/memory_reqs.pdf
+	width 48text%
+	BoundingBox 0bp -12bp 360bp 204bp
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:memory_vs_element_size_2"
+
+\end_inset
+
+Number of elements vs.
+ memory requirements with approximations.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Tradeoffs in element size and resource requirements.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Parallel Performance
+\end_layout
+
+\begin_layout Standard
+The program flow in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:simulation_flow"
+
+\end_inset
+
+ shows three main communication points.
+ The global nature of these communications is a serious bottleneck to simulation
+ performance on a parallel system.
+ 
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:sim_breakdown"
+
+\end_inset
+
+ shows simulation run times for a 13,398 element 100,000 year simulation
+ on a simple cluster system using different numbers of processors.
+ The cluster has 16 nodes, with two 2.4 GHz quad-core Xeon processors per
+ node and a Gigabit ethernet network.
+ For a single processor, most of the time is spent in the long term stress
+ calculation and the initial Green’s function calculations.
+ As the number of processors increases these calculations scale well but
+ the time spent in communi- cation significantly rises.
+ By 16 processors the majority of simulation time is spent communicating
+ and there is very poor strong scalability.
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:sim_comm_breakdown"
+
+\end_inset
+
+ shows the breakdown in time for different types of communication.
+ For all numbers of processors, the majority of time is spent distributing
+ stress values over the processors.
+ This is required because the changes in stress during a rupture potentially
+ lead to other elements rupturing.
+ However, at a given rupture propagation step it is highly unlikely the
+ rupture will spread a significant distance past where it already has traveled.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename graphics/Heien_Sachs_12_parallel_sim_time_breakdown.pdf
+	width 48text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:sim_breakdown"
+
+\end_inset
+
+Parallel simulation time breakdown.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename graphics/Heien_Sachs_12_parallel_comm_time_breakdown.pdf
+	width 48text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:sim_comm_breakdown"
+
+\end_inset
+
+Parallel communication time breakdown.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Breakdown of total simulation time.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter
+Tutorials 
+\begin_inset CommandInset label
+LatexCommand label
+name "cha:Tutorials"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Overview
+\end_layout
+
+\begin_layout Standard
+These tutorials are meant to serve as a guide to some of the types of problems
+ VC can solve.
+ These cookbook examples are distributed with the package under the 
+\family typewriter
+examples
+\family default
+ directory.
+ However, you might need to edit these example scripts slightly to launch
+ the job on your cluster (see Section 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "sec:Multiprocessor-Example"
+
+\end_inset
+
+ for more information).
+ Each tutorial is a self-contained lesson in how to use Virtual California.
+ The tutorials increase in degree of complexity from one to the next.
+\end_layout
+
+\begin_layout Subsection
+Prerequisites
+\end_layout
+
+\begin_layout Standard
+Before you begin any of the tutorials, you will need to install Virtual
+ California following the instructions in Chapter 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "cha:Installation"
+
+\end_inset
+
+.
+ If you do not wish to create your own mesh at this time, the meshes are
+ also provided as part of the tutorial.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Input Files
+\end_layout
+
+\begin_layout Standard
+The fault model and a file named params.d must be in the same directory as
+ the compiled application.
+ An example params.d file can be found in example/sample_params.d.
+ In order to run, the model files must be named in the QuakeLib file parameters
+ section of the file.
+ Only a friction and geometry file are necessary.
+ See section 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "cha:Appendix-A:-Input"
+
+\end_inset
+
+ and section 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "sec:Trace-File-Format"
+
+\end_inset
+
+ for more information on the input fault model files and parameters.
+\end_layout
+
+\begin_layout Section
+Tutorial Using Single Element
+\end_layout
+
+\begin_layout Subsection
+Overview
+\end_layout
+
+\begin_layout Standard
+This tutorial is the simplest possible implementation
+\end_layout
+
+\begin_layout Subsection
+Mesh Description
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:mesh6km"
+
+\end_inset
+
+ shows the result of meshing the One_Fault_Example trace in Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:define_mesh_faults"
+
+\end_inset
+
+ with
+\end_layout
+
+\begin_layout Subsection
+Running VC
+\end_layout
+
+\begin_layout Subsection
+Results
+\end_layout
+
+\begin_layout Section
+Tutorial Using Multiple Elements
+\end_layout
+
+\begin_layout Subsection
+Overview
+\end_layout
+
+\begin_layout Subsection
+Mesh Description
+\end_layout
+
+\begin_layout Subsection
+Running VC
+\end_layout
+
+\begin_layout Subsection
+Results
+\end_layout
+
+\begin_layout Part
+Appendices
+\end_layout
+
+\begin_layout Chapter
+\start_of_appendix
+\begin_inset CommandInset label
+LatexCommand label
+name "cha:Appendix-A:-Input"
+
+\end_inset
+
+Input Parameters for Virtual California
+\end_layout
+
+\begin_layout Section
+Input Parameters Grouped by Functionality
+\end_layout
+
+\begin_layout Standard
+This section explains the meaning of the input parameters for Virtual California.
+ These parameters are grouped by their functionality.
+ Parameters are given with their default values.
+\end_layout
+
+\begin_layout Subsection
+Simulation time parameters
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="2">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="top" width="1.85in">
+<column alignment="left" valignment="top" width="4.25in">
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+sim.time.start_year = 0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The starting year of the simulation
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+sim.time.end_year = 1000
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The ending year of the simulation.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+\noindent
+System Parameters
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Tabular
+<lyxtabular version="3" rows="8" columns="2">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="top" width="1.85in">
+<column alignment="left" valignment="top" width="4.25in">
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+sim.system.rawfile.lat0 = 31.5
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+sim.system.rawfile.lon0 = -126
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Base latitude and longitude for coordinates of meshed model.
+ These values are used in the conversion from This should be roughly within
+ the bounds of your fault model to avoid warping from conversion to a Cartesian
+ coordinate system.
+ If undefined, defaults to (-126.0, 31.5) (about 500 miles W-SW from Los Angeles).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+sim.system.kill_cff
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Below what CFF a fault will be deactivated.
+ Certain fault configurations can have stress sinks, and this parameter
+ will effectively remove them.
+ If undefined, defaults to being turned off (negative infinity).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+sim.system.sanity_check = false
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Whether to perform sanity checks on simulation values and abort if any values
+ are outside acceptable ranges.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+sim.system.transpose_matrix = true
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Whether to store the Green's matrix in a transposed form to significantly
+ improve performance.
+ This should only be set to false for performance profiling.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+sim.system.progress_period = 0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+How frequently (in real seconds) to display simulation progress.
+ If undefined or <= 0, simulation progress will not be displayed.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+sim.system.depth_dependent_slip = false
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Whether the fault velocity (slip rate) should be altered by depth.
+ This is based on the equation 
+\begin_inset Formula $v=v_{s}(1-(\frac{z}{d})^{2})$
+\end_inset
+
+ where 
+\begin_inset Formula $v_{s}$
+\end_inset
+
+ is the original long term slip velocity, 
+\begin_inset Formula $d$
+\end_inset
+
+ is the total fault depth, and 
+\begin_inset Formula $z$
+\end_inset
+
+ is the depth of the block center.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+sim.system.checkpoint_period
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+How frequently (in simulation events) a checkpoint is saved.
+ If undefined or <= 0, checkpoints will not be saved.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+sim.system.checkpoint_prefix=sim_state_
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The prefix of the state save files, which will also include the event count.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Friction parameters
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="3" columns="2">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="top" width="1.85in">
+<column alignment="left" valignment="top" width="4.25in">
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+sim.friction.dynamic
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The dynamic rupture value to use in the simulation from 0 to 1.
+ Higher values indicate ruptures are more likely to propagate along a fault
+ and result in larger earthquakes, while lower values indicate ruptures
+ are less likely to propagate and result in smaller earthquakes.
+ If undefined or outside the allowed range, use the dynamic values specified
+ for each fault element.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+sim.friction.law=original
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Either use the 
+\family typewriter
+\size small
+original
+\family default
+\size default
+ or 
+\family typewriter
+\size small
+stepped
+\family default
+\size default
+ friction law.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+sim.friction.slip_scaling_threshold=10
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The slip scaling threshold parameter used to scale slip with rupture size
+ as per Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:sst_one"
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Green's function parameters
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="top" width="1.85in">
+<column alignment="left" valignment="top" width="4.25in">
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+sim.greens.method = standard
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The method to calculate the Green's functions for fault element stress interacti
+ons.
+ There are three possible choices for this parameter - 
+\family typewriter
+\size small
+standard
+\family default
+\size default
+, 
+\family typewriter
+\size small
+bh
+\family default
+\size default
+ and 
+\family typewriter
+\size small
+file
+\family default
+\size default
+.
+ The 
+\family typewriter
+\size small
+standard
+\family default
+\size default
+ option will calculate the Green's functions using the normal Okada equations
+ with all element-element interactions.
+ The 
+\family typewriter
+\size small
+bh
+\family default
+\size default
+ option will use a Barnes Hut style approximation.
+ The 
+\family typewriter
+\size small
+file
+\family default
+\size default
+ option will read precalculated values from an input file (specified using
+ 
+\family typewriter
+\size small
+sim.greens.input
+\family default
+\size default
+).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+sim.greens.bh_theta = 0.0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Parameter for Barnes Hut calculation of Green's function (between 0 and
+ 1).
+ Lower values mean less of an approximation.
+ If undefined, defaults to 0 (meaning it effectively doesn't use Barnes
+ Hut approximation).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+sim.greens.input
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+If 
+\family typewriter
+\size small
+sim.greens.method
+\family default
+\size default
+ is defined as 
+\family typewriter
+\size small
+file
+\family default
+\size default
+, this is the name of the HDF5 file to read the Green's function values
+ from.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+sim.greens.output
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The name of the HDF5 file to write the Green's function values to.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+sim.greens.use_normal = true
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Whether to use the Green's normal stress function in calculations or just
+ the Green's shear function.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+sim.greens.kill_distance = 0.0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Kills interaction between any two blocks greater than this distance (in
+ km) apart.
+ If undefined or <= 0, all interactions will remain the same.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+File name parameters
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="3" columns="2">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="top" width="1.85in">
+<column alignment="left" valignment="top" width="4.25in">
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+sim.file.system_output
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The system file of the simulation.
+ If undefined, no system information file will be written.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+sim.file.events
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The file which events will be written to.
+ If undefined, events will not be recorded in an ASCII format.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+sim.file.hdf5_output
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The file to write HDF5 formatted simulation and event data into.
+ If undefined, HDF5 data will not be recorded.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+EqSim File Parameters
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="5" columns="2">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="top" width="1.85in">
+<column alignment="left" valignment="top" width="4.25in">
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+sim.eqsim.file.output
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The file which EqSim style event logging will be written to.
+ If undefined, the EqSim events file will not be created.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+sim.eqsim.file.condition
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The file to read EqSim style initial condition information from.
+ If undefined, initial shear and normal stresses will be 0 and rhogd will
+ be 1.557e8.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+sim.eqsim.file.friction
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The file to read EqSim style friction information from.
+ If undefined, EqSim input files will not be used.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+sim.eqsim.file.geometry
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The file to read EqSim style geometry information from.
+ If undefined, EqSim input files will not be used.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+sim.eqsim.file.slipmap_mag = 7.5
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The magnitude cutoff to print slip maps in the EqSim event file.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+\noindent
+Noise parameters
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Tabular
+<lyxtabular version="3" rows="4" columns="2">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="top" width="1.85in">
+<column alignment="left" valignment="top" width="4.25in">
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+sim.noise.event=0.0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Noise in single stress drop events.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+sim.noise.slip_deficit=0.0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Noise in initial slip_deficit.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+sim.noise.stress.stress=0.0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Noise applied to stress drop at start of simulation (affects all of simulation).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+sim.noise.
+\size small
+resolution
+\size default
+=10.0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Stress noise resolution in km (over what range to apply a single noise value)
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+BASS (Branching Aftershock Sequence) model parameters
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="2">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="top" width="1.85in">
+<column alignment="left" valignment="top" width="4.25in">
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+sim.bass.max_generations = 0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Maximum number of aftershock generations to generate in BASS model.
+ If this is 0 then the BASS aftershock model will not be used.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+sim.bass.mm = 4.0
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+sim.bass.dm = 1.25
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+sim.bass.b = 1.0
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+sim.bass.c = 0.1
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+sim.bass.p = 1.25
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+sim.bass.d = 300
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+sim.bass.q = 1.35
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Different parameters for BASS model.
+ See paper 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Turcotte:2007up"
+
+\end_inset
+
+ for details.
+\end_layout
+
+\begin_layout Plain Layout
+Mm: minimum magnitude
+\end_layout
+
+\begin_layout Plain Layout
+dM: strength of aftershock sequence (intensity of aftershocks)
+\end_layout
+
+\begin_layout Plain Layout
+b: scaling of frequency magnitude
+\end_layout
+
+\begin_layout Plain Layout
+c: start of aftershocks in days
+\end_layout
+
+\begin_layout Plain Layout
+p: time decay rate of aftershocks
+\end_layout
+
+\begin_layout Plain Layout
+d: distance parameter for aftershocks in meters
+\end_layout
+
+\begin_layout Plain Layout
+q: distance decay rate
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Parallel simulation parameters
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="2">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="top" width="1.85in">
+<column alignment="left" valignment="top" width="4.25in">
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+sim.parallel.spec_exec = none
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Choose the type of speculative execution to be used to improve simulation
+ speed.
+ Currently experimental.
+ Can be either 
+\family typewriter
+\size small
+none
+\family default
+\size default
+, 
+\family typewriter
+\size small
+fixed
+\family default
+\size default
+, or 
+\family typewriter
+\size small
+adaptive
+\family default
+\size default
+.
+ If 
+\family typewriter
+none
+\family default
+ is chosen, speculative execution will not be used.
+ If 
+\family typewriter
+\size small
+fixed
+\family default
+\size default
+ or 
+\family typewriter
+\size small
+adaptive
+\family default
+\size default
+ are chosen, the speculative execution scheme is used with either a fixed
+ boundary distance or adaptive distance.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+sim.parallel.spec_exec_distance = 0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The boundary distance to use in the 
+\family typewriter
+\size small
+fixed
+\family default
+\size default
+ speculative execution scheme.
+ This affects how frequently the simulation goes into speculative mode.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter
+Virtual California Input File Format
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Standard
+There are several input files used in VC.
+ 
+\end_layout
+
+\begin_layout Section
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Trace-File-Format"
+
+\end_inset
+
+Trace File Format
+\end_layout
+
+\begin_layout Standard
+The initial fault geometry for VC runs is defined by the trace file.
+ Each trace file describes a single fault by the location of points along
+ the fault trace and associated fault characteristics at each of the points.
+ A single VC model for a simulation can be generated by combining multiple
+ fault traces using the vc_edit program (see Cookbook XXX for an example).
+\end_layout
+
+\begin_layout Standard
+The trace files are ASCII format with comments indicated by a # (hash) mark.
+ Lines that begin with a # will be ignored and any values after a # in a
+ line will be ignored.
+ The initial line in the trace file outlines the fault described in the
+ file using the following attributes:
+\begin_inset VSpace smallskip*
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Tabular
+<lyxtabular version="3" rows="3" columns="2">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="top" width="1.85in">
+<column alignment="left" valignment="top" width="4.25in">
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+fault_id
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ID number of the parent fault of this section.
+ Used to unify multi-segment faults defined in separate files.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+num_points
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The number of trace points comprising this section.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+section_name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Name of the section, may not contain whitespace.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace smallskip*
+\end_inset
+
+The remainder of the file defines each of the trace points for the fault.
+ Each trace point is described using the following attributes.
+ The units of the attributes in the file were chosen to be easily human
+ understandable, however in the simulation they are converted to SI units.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Tabular
+<lyxtabular version="3" rows="10" columns="2">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="top" width="1.85in">
+<column alignment="left" valignment="top" width="4.25in">
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+latitude
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Latitude of trace point (must be in [-90, 90]).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+longitude
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Longitude of trace point (must be in [-180, 180]).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+altitude
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Altitude of trace point in meters above ground.
+ All faults should be underground (negative altitude).
+ Faults defined above ground will have undefined results.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+depth_along_dip
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The depth of the fault along the dip in meters (must be greater than 0).
+ For a dip angle of 
+\begin_inset Formula $\theta$
+\end_inset
+
+ the actual depth of the fault will be depth_along_dip*
+\begin_inset Formula $sin(\theta)$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+slip_rate
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The long term slip rate of the fault in centimeters per year.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+aseismic
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The fraction of slip that is aseismic (must be in [0,1]).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+rake
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The fault rake angle in degrees (must be in [-180, 180]).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+dip
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The fault dip angle in degrees (must be in [0,90]).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+lame_mu
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Lame's mu parameter describing material properties in Pascals (must be greater
+ than 0).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+lame_lambda
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Lame's lambda parameter describing material properties in Pascals.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter
+\begin_inset CommandInset label
+LatexCommand label
+name "chap:Virtual-California-Output"
+
+\end_inset
+
+Virtual California Output File Format
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Standard
+The format of the output files of Virtual California is described here.
+ All outputs are in non-dimensional units unless specified.
+\end_layout
+
+\begin_layout Section
+HDF5 Output
+\end_layout
+
+\begin_layout Standard
+If Virtual California is compiled with the HDF5 library it is possible to
+ output simulation results in this format.
+ This format aims to be a full description of the simulation and results,
+ containing both a description of the fault system and events that occurred
+ on the system.
+ In this way the user can write scripts that can read all information from
+ a single source.
+ The output file is composed of several tables and datasets describing the
+ input and output to a simulation.
+ Depending on user options some of these tables may be empty but they will
+ always exist in the file.
+\end_layout
+
+\begin_layout Subsection
+Datasets
+\end_layout
+
+\begin_layout Standard
+The HDF5 output file contains two datasets describing some simulation parameters.
+ The first dataset is named 
+\family typewriter
+\size small
+base_lat_lon
+\family default
+\size default
+ and describes the latitude and longitude point used as the reference for
+ converting input element locations to a Cartesian grid system for simulation.
+ The second dataset is named 
+\family typewriter
+\size small
+sim_years
+\family default
+\size default
+ and describes the beginning and ending simulation year.
+\end_layout
+
+\begin_layout Subsection
+Element Table
+\end_layout
+
+\begin_layout Standard
+The table titled 
+\family typewriter
+\size small
+block_info_table
+\family default
+\size default
+ describes the set of all elements used in the simulation.
+ The information for each element is a row in the table, with each column
+ representing an attribute of the block.
+ The attributes are defined as follows:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="33" columns="2">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="top" width="0">
+<column alignment="left" valignment="top" width="4.25in">
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Attribute Name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Attribute Description
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+block_id
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A numerical ID of the element.
+ These IDs should be in contiguousascending numerical order.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+fault_id
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A numerical ID for the fault the element belongs to.
+ This allows elements to be grouped by fault.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+section_id
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A numerical ID for the subsection of the fault the element belongs to (if
+ any).
+ This allows faults to be subdivided into geologically distinct zones.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+m_x_pt1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The X coordinate of the 1st point defining the element (in meters).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+m_y_pt1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The Y coordinate of the 1st point defining the element (in meters).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+m_z_pt1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The Z coordinate of the 1st point defining the element (in meters).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+m_das_pt1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The distance of the 1st point along the fault strike (in meters).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+m_trace_flag_pt1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+EqSim specific flag defining where the 1st point is on the fault trace.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+m_x_pt2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The X coordinate of the 2nd point defining the element (in meters).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+m_y_pt2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The Y coordinate of the 2nd point defining the element (in meters).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+m_z_pt2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The Z coordinate of the 2nd point defining the element (in meters).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+m_das_pt2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The distance of the 2nd point along the fault strike (in meters).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+m_trace_flag_pt2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+EqSim specific flag defining where the 2nd point is on the fault trace.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+m_x_pt3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The X coordinate of the 3rd point defining the element (in meters).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+m_y_pt3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The Y coordinate of the 3rd point defining the element (in meters).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+m_z_pt3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The Z coordinate of the 3rd point defining the element (in meters).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+m_das_pt3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The distance of the 3rd point along the fault strike (in meters).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+m_trace_flag_pt3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+EqSim specific flag defining where the 3rd point is on the fault trace.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+m_x_pt4
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The X coordinate of the 4th point defining the element (in meters).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+m_y_pt4
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The Y coordinate of the 4th point defining the element (in meters).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+m_z_pt4
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The Z coordinate of the 4th point defining the element (in meters).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+m_das_pt4
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The distance of the 4th point along the fault strike (in meters).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+m_trace_flag_pt4
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+EqSim specific flag defining where the 4th point is on the fault trace.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+slip_velocity
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The long term slip velocity of the element (in meters/second).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+aseismicity
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The fraction of the element slip that is aseismic (from 0 to 1).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+rake_rad
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The rake angle of the element (in radians).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+dip_rad
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The dip angle of the element (in radians).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+dynamic_strength
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The dynamic strength of the element (in Pascals).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+static_strength
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The static strength of the element (in Pascals).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+lame_mu
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The Lamé mu parameter used to calculate Green's function values on the element
+ (in Pascals).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+lame_lambda
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The Lamé lambda parameter used to calculate Green's function values on the
+ element (in Pascals).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+fault_name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The name of the fault associated with the element.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Event Table
+\end_layout
+
+\begin_layout Standard
+The table titled 
+\family typewriter
+\size small
+event_table
+\family default
+\size default
+ describes the events that occurred during a simulation.
+ This table gives a more general overview of the event information, with
+ detailed information (e.g.
+ which blocks slipped by how much in what order releasing how much stress)
+ given in 
+\family typewriter
+\size small
+event_sweep_table
+\family default
+\size default
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="13" columns="2">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="top" width="0">
+<column alignment="left" valignment="top" width="0">
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Attribute Name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Attribute Description
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+event_number
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A unique numerically ascending ID number of the event.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+event_year
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The simulation year that the event occurred in.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+event_trigger
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The ID of the block that triggered the event, i.e.
+ the ID of the first block to fail.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+event_magnitude
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The moment magnitude of the event calculated based on the area, slip and
+ shear modulus.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+event_shear_init
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The summed initial shear stress on all blocks involved in the event (in
+ Pascals).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+event_normal_init
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The summed initial normal stress on all blocks involved in the event (in
+ Pascals).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+event_shear_final
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The summed final shear stress on all blocks involved in the event (in Pascals).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+event_normal_final
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The summed final normal stress on all blocks involved in the event (in Pascals).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+start_sweep
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The ID of the first sweep of the event.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+end_sweep
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The ID of the final sweep of the event.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+start_aftershock
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The ID of the first aftershock caused by the event.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+end_aftershock
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The ID of the last aftershock caused by the event.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Event Sweep Table
+\end_layout
+
+\begin_layout Standard
+The table titled 
+\family typewriter
+\size small
+event_sweep_table
+\family default
+\size default
+ describes the individual block failures in the sweeps during an event.
+ There can be multiple sweeps within an event and there can be multiple
+ block failures within each sweep.
+ Each line in the table represents a block failure in a given sweep.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="11" columns="2">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="top" width="0">
+<column alignment="left" valignment="top" width="0">
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Attribute Name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Attribute Description
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+event_number
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The event which this sweep is a part of.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+sweep_num
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The numerical ID of the sweep within the event (starts at 0 for each event).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+block_id
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The numerical ID of the block that failed.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+slip
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The amount that the block slipped in this sweep, not cumulative (in meters).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+area
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The area of the block that slipped (in square meters)
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+mu
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The shear modulus of the block (in Pascals).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+shear_init
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The shear stress on the block before the sweep (in Pascals).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+normal_init
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The normal stress on the block before the sweep (in Pascals).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+shear_final
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The shear stress on the block at the end of the sweep (in Pascals).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+normal_final
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The normal stress on the block at the end of the sweep (in Pascals).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Aftershock Table
+\end_layout
+
+\begin_layout Standard
+The table titled 
+\family typewriter
+\size small
+aftershock_table
+\family default
+\size default
+ describes a set of aftershocks generated by the BASS model.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="7" columns="2">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="top" width="0">
+<column alignment="left" valignment="top" width="0">
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Attribute Name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Attribute Description
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+event_number
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The event which generated this aftershock based on the BASS model.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+generation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The BASS model generation number of the aftershock.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+magnitude
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The magnitude of the aftershock.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+time
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The simulation time when the aftershock occurred.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+x
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The X position of the aftershock.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size small
+y
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The Y position of the aftershock.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter
+\begin_inset CommandInset label
+LatexCommand label
+name "chap:License-1"
+
+\end_inset
+
+HDF5 Files
+\end_layout
+
+\begin_layout Section
+About HDF5
+\end_layout
+
+\begin_layout Standard
+The Hierarchical Data Format (HDF) is a portable file format developed at
+ the National Center for Supercomputing Applications (NCSA) 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+hdf.ncsa.uiuc.edu/HDF5
+\end_layout
+
+\end_inset
+
+.
+ It is designed for storing, retrieving, analyzing, visualizing, and converting
+ scientific data.
+ The current and most popular version is HDF5, which stores multi-dimensional
+ arrays together with ancillary data in a portable self-describing format.
+ It uses a hierarchical structure that provides application programmers
+ with a host of options for organizing how data is stored in HDF5 files.
+\end_layout
+
+\begin_layout Standard
+HDF5 files are organized in a hierarchical structure, similar to a Unix
+ file system.
+ Two types of primary objects, 
+\shape italic
+groups
+\shape default
+ and 
+\shape italic
+datasets
+\shape default
+, are stored in this structure.
+ A group contains instances of zero or more groups or datasets, while a
+ dataset stores a multi-dimensional array of data elements.
+ Both kinds of objects are accompanied by supporting metadata.
+\end_layout
+
+\begin_layout Standard
+A dataset is physically stored in two parts: a header and a data array.
+ The header contains miscellaneous metadata describing the dataset as well
+ as information that is needed to interpret the array portion of the dataset.
+ Essentially, it includes the name, datatype, dataspace, and storage layout
+ of the dataset.
+ The name is a text string identifying the dataset.
+ The datatype describes the type of the data array elements.
+ The dataspace defines the dimensionality of the dataset, i.e., the size and
+ shape of the multi-dimensional array.
+ The dimensions of a dataset can be either fixed or unlimited (extensible).
+ The storage layout specifies how the data arrays are arranged in the file.
+\end_layout
+
+\begin_layout Standard
+The data array contains the values of the array elements and can be either
+ stored together in a contiguous file space or split into smaller 
+\shape italic
+chunks
+\shape default
+ stored at any allocated location.
+ Chunks are defined as equally-sized multi-dimensional subarrays (blocks)
+ of the whole data array and each chunk is stored in a separate contiguous
+ file space.
+ Extensible datasets whose dimensions can grow are required to be stored
+ in chunks.
+ One dimension is increased by allocating new chunks at the end of the file
+ to cover the extension.
+\end_layout
+
+\begin_layout Standard
+HDF5 also supports access to portions (or selections) of a dataset by 
+\shape italic
+hyperslabs
+\shape default
+, which consist of a subarray or strided subarray of the multi-dimensional
+ dataset.
+ The selection is performed in the file dataspace for the dataset.
+ HDF5 also supports parallel I/O.
+ Parallel access is supported through MPI-IO.
+ The file and datasets are collectively created/opened by all participating
+ processes.
+ Each process accesses part of a dataset by defining its own file dataspace
+ for that dataset.
+ When accessing data, the data transfer property specifies whether each
+ process will perform independent I/O or all processes will perform collective
+ I/O.
+\end_layout
+
+\begin_layout Subsection
+Accessing Data Using HDFView
+\end_layout
+
+\begin_layout Standard
+NCSA HDFView is a visual tool for accessing HDF files.
+ You can use it for viewing the internal file hierarchy in a tree structure,
+ creating new files, adding or deleting groups and datasets, and modifying
+ existing datasets.
+ HDFView is capable of displaying 2D slices of multi-dimensional datasets,
+ with navigation arrow buttons that enable you to range over the entire
+ extent of a third dimension.
+\end_layout
+
+\begin_layout Chapter
+\begin_inset CommandInset label
+LatexCommand label
+name "chap:License"
+
+\end_inset
+
+License 
+\end_layout
+
+\begin_layout Standard
+Copyright (c) 2012-2014 Eric M.
+ Heien, Michael K.
+ Sachs, Kasey W.
+ Schultz, John B.
+ Rundle
+\end_layout
+
+\begin_layout Standard
+Permission is hereby granted, free of charge, to any person obtaining a
+ copy of this software and associated documentation files (the "Software"),
+ to deal in the Software without restriction, including without limitation
+ the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ and/or sell copies of the Software, and to permit persons to whom the Software
+ is furnished to do so, subject to the following conditions:
+\end_layout
+
+\begin_layout Standard
+The above copyright notice and this permission notice shall be included
+ in all copies or substantial portions of the Software.
+\end_layout
+
+\begin_layout Standard
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+ DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE
+, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+ OTHER DEALINGS IN THE SOFTWARE.
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "citations"
+options "plain"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
