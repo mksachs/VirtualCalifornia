@@ -4121,55 +4121,11 @@ hdf.ncsa.uiuc.edu/hdf-java-html/hdfview
 .
 \end_layout
 
-\begin_layout Section
-Testing
-\end_layout
-
-\begin_layout Standard
-After following the instructions in Section 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "sec:Install"
-
-\end_inset
-
-, you should run the install tests.
- From within the 'test' directory just run the 'run_test' script:
-\end_layout
-
-\begin_layout LyX-Code
-$ ./run_test
-\end_layout
-
-\begin_deeper
-\begin_layout LyX-Code
-Virtual California will run a small simulation creating the files:
-\end_layout
-
-\begin_layout LyX-Code
-test_greens.h5 - The interaction matrices.
-\end_layout
-
-\begin_layout LyX-Code
-test_dyn-0-5_st-5.h5 - The simulation file.
-\end_layout
-
-\begin_layout LyX-Code
-block_info.dat - A element mapping file.
-\end_layout
-
-\end_deeper
-\begin_layout LyX-Code
-
-\series bold
-TODO: Update with Eric's unit tests.
-\end_layout
-
 \begin_layout Chapter
 Running VC
 \begin_inset CommandInset label
 LatexCommand label
-name "cha:Cookbooks"
+name "cha:Running_VC"
 
 \end_inset
 
@@ -4189,20 +4145,329 @@ Now that installation and testing is finished, let's get into the specifics
  in Chapter 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "cha:Cookbooks"
+reference "cha:Running_VC"
 
 \end_inset
 
 .
-\end_layout
-
-\begin_layout Standard
-The only input needed to run a Virtual California simulation is the fault
- geometry and friction parameters
+ 
 \end_layout
 
 \begin_layout Section
-Setting Simulation Parameters
+Basic Usage and Tests
+\end_layout
+
+\begin_layout Standard
+The main procedure for running a VC simulation is to create/assimilate the
+ fault model and friction parameters into a folder, compile Virtual California
+ following Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Install"
+
+\end_inset
+
+ to generate the executable, place the executable in the same folder as
+ the parameter files, and finally execute the program.
+\end_layout
+
+\begin_layout Subsection
+Single Processor Test
+\end_layout
+
+\begin_layout Standard
+If you installed Virtual California according to Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Install"
+
+\end_inset
+
+, then you can run the VC executable directly using the sample parameter
+ files.
+ Simply navigate to the test directory and run the test simulation via:
+\end_layout
+
+\begin_layout LyX-Code
+$ cd test
+\end_layout
+
+\begin_layout LyX-Code
+$ ./run_test
+\end_layout
+
+\begin_layout Standard
+The ./run_test executable is just a shell script that check if VC has been
+ compiled, copies it to the test directory with the example fault parameter
+ files, and runs a short simulation as specified by the params.d file.
+ This test simulation will output
+\end_layout
+
+\begin_layout LyX-Code
+Running test...
+\end_layout
+
+\begin_layout LyX-Code
+# *** MPI CPU count : 1 
+\end_layout
+
+\begin_layout LyX-Code
+# EqSim condition file: none 
+\end_layout
+
+\begin_layout LyX-Code
+# EqSim friction file: test_friction.dat 
+\end_layout
+
+\begin_layout LyX-Code
+# EqSim geometry file: test_geometry.dat 
+\end_layout
+
+\begin_layout LyX-Code
+# Section params file: none 
+\end_layout
+
+\begin_layout LyX-Code
+# Initializing blocks.
+ 
+\end_layout
+
+\begin_layout LyX-Code
+# To gracefully quit, create the file quit_vc in the run directory.
+ 
+\end_layout
+
+\begin_layout LyX-Code
+# Calculating Greens function with the 2011 Okada class..
+ 
+\end_layout
+
+\begin_layout LyX-Code
+# Greens function took 1.04648 seconds.
+ 
+\end_layout
+
+\begin_layout LyX-Code
+# Greens shear matrix takes 87.5 kilobytes.
+ 
+\end_layout
+
+\begin_layout LyX-Code
+# Greens normal matrix takes 87.5 kilobytes.
+ 
+\end_layout
+
+\begin_layout LyX-Code
+# Greens output file: test_greens.h5 
+\end_layout
+
+\begin_layout LyX-Code
+# Displaying simulation progress every 30 seconds.
+ 
+\end_layout
+
+\begin_layout LyX-Code
+# 
+\end_layout
+
+\begin_layout LyX-Code
+# ********************************************** 
+\end_layout
+
+\begin_layout LyX-Code
+# *** 
+\end_layout
+
+\begin_layout LyX-Code
+# *** Blocks : 100 
+\end_layout
+
+\begin_layout LyX-Code
+# *** Faults : 1 
+\end_layout
+
+\begin_layout LyX-Code
+# *** 
+\end_layout
+
+\begin_layout LyX-Code
+# *** Present Time (years) : 0 
+\end_layout
+
+\begin_layout LyX-Code
+# *** Min cff : -2.0081e+07 
+\end_layout
+
+\begin_layout LyX-Code
+# *** Mean cff : -1.24006e+07 
+\end_layout
+
+\begin_layout LyX-Code
+# *** Max cff : -6.366e+06 
+\end_layout
+
+\begin_layout LyX-Code
+# *** 
+\end_layout
+
+\begin_layout LyX-Code
+# To access the HDF5 file during the simulation, pause it 
+\end_layout
+
+\begin_layout LyX-Code
+# by creating the file pause_vc.
+ Delete the file to resume.
+ 
+\end_layout
+
+\begin_layout LyX-Code
+# events        year      minCff[index]      avrCff      maxCff[index]
+\end_layout
+
+\begin_layout LyX-Code
+      10       391.5    -1.652e+07[ 11]  -6.543e+06    -2.168e+05[ 69] 
+\end_layout
+
+\begin_layout LyX-Code
+# Plugin requested simulation end: Block stress calculation 
+\end_layout
+
+\begin_layout LyX-Code
+#                   Timer Name  AvgCounts        Min        Max       Mean
+\end_layout
+
+\begin_layout LyX-Code
+StdDev
+\end_layout
+
+\begin_layout LyX-Code
+0                   Total Time          0      0.000      0.000      0.000
+\end_layout
+
+\begin_layout LyX-Code
+0.000
+\end_layout
+
+\begin_layout LyX-Code
+1             Init and Cleanup          1      1.111      1.111      1.111
+\end_layout
+
+\begin_layout LyX-Code
+0.000
+\end_layout
+
+\begin_layout LyX-Code
+2                 Comm Barrier          2      0.000      0.000      0.000
+\end_layout
+
+\begin_layout LyX-Code
+0.000
+\end_layout
+
+\begin_layout LyX-Code
+3     Block stress calculation         56      0.094      0.094      0.094
+\end_layout
+
+\begin_layout LyX-Code
+0.000
+\end_layout
+
+\begin_layout LyX-Code
+4     Propagate event ruptures         56      0.128      0.128      0.128
+\end_layout
+
+\begin_layout LyX-Code
+0.000
+\end_layout
+
+\begin_layout LyX-Code
+5             HDF5 Data Writer         56      0.025      0.025      0.025
+\end_layout
+
+\begin_layout LyX-Code
+0.000
+\end_layout
+
+\begin_layout Standard
+This test simulation created the following files:
+\end_layout
+
+\begin_layout LyX-Code
+test_greens.h5 - The interaction matrices.
+\end_layout
+
+\begin_layout LyX-Code
+test_dyn-0-5_st-5.h5 - The simulation file.
+\end_layout
+
+\begin_layout LyX-Code
+block_info.dat - A element mapping file.
+\end_layout
+
+\begin_layout Standard
+When you followed the installation instructions in Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Install"
+
+\end_inset
+
+ and used the ./configure command, the default running mode using a single
+ processor was established by setting the compiler environment variables
+ CC=gcc and CXX=g++ in the VirtualCalifornia/configure file.
+ The only rule here is that the fault geometry file, fault friction file,
+ and parameters file must be in the same directory as the VC executable.
+ 
+\end_layout
+
+\begin_layout Subsection
+Multiprocessing Test
+\end_layout
+
+\begin_layout Standard
+To run the test simulation on a multiprocessor machine, you must first set
+ the compiler environment variables CC and CXX in the VirtualCalifornia/configur
+e file to multiprocessor compilers (e.g.
+ CC=mpicc CXX=mpicxx).
+ After specifying the compilers, follow the steps in Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Install"
+
+\end_inset
+
+ again to compile VC for a multiprocessing run.
+ Running the test simulation in parallel on, for example, four processors
+ is accomplished with:
+\end_layout
+
+\begin_layout LyX-Code
+$ cd test
+\end_layout
+
+\begin_layout LyX-Code
+$ mpirun -np 4 ./run_test
+\end_layout
+
+\begin_layout Subsection
+Advanced Usage
+\end_layout
+
+\begin_layout Standard
+Since the simulation physics and event model will work with any arbitrarily
+ complex fault model, advanced users can make Virtual California generate
+ simulated seismic histories for any fault system.
+ The only requirement for using VC to simulate dynamics on an arbitrary
+ fault network is to prepare the input files.
+ Chapter 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "cha:Running_VC"
+
+\end_inset
+
+ contains examples that illustrate this procedure of defining fault geometry
+ and properties.
 \end_layout
 
 \begin_layout Section
@@ -4217,7 +4482,13 @@ name "sec:element_size_discussion"
 \end_layout
 
 \begin_layout Standard
-The size of the meshed elements will affect both simulation accuracy and
+Virtual California is inherently designed to support parallel computing
+ and this section gives some quantitative results of deploying VC in multiproces
+sing environments.
+ It turns out that the key quantities determining the scope of the output
+ and the simulation performance are the number and size of the fault elements
+ in the fault model.
+ The size of the meshed elements will affect both simulation accuracy and
  computational resource requirements.
  The appropriate size of fault elements for a given simulation depends on
  the desired minimum earthquake magnitude and the available computational
@@ -4410,9 +4681,15 @@ Memory=16N^{2}bytes
 Because the degree of approximation possible with Barnes-Hut will vary depending
  on the system geometry it is not possible to give a function for memory
  requirements.
- For the UCERF model of all major faults in California (cite) we find the
- following equation gives a reasonable estimate of memory requirements for
- a given Barnes-Hut 
+ For the UCERF model of all major faults in California 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "UCERF2"
+
+\end_inset
+
+ we find the following equation gives a reasonable estimate of memory requiremen
+ts for a given Barnes-Hut 
 \begin_inset Formula $\theta$
 \end_inset
 
@@ -4700,7 +4977,7 @@ Breakdown of total simulation time.
 Tutorials 
 \begin_inset CommandInset label
 LatexCommand label
-name "cha:Tutorials"
+name "cha:Cookbooks"
 
 \end_inset
 
@@ -4720,14 +4997,7 @@ examples
 \family default
  directory.
  However, you might need to edit these example scripts slightly to launch
- the job on your cluster (see Section 
-\begin_inset CommandInset ref
-LatexCommand vref
-reference "sec:Multiprocessor-Example"
-
-\end_inset
-
- for more information).
+ the job on your cluster.
  Each tutorial is a self-contained lesson in how to use Virtual California.
  The tutorials increase in degree of complexity from one to the next.
 \end_layout
@@ -4758,7 +5028,7 @@ Input Files
 \begin_layout Standard
 The fault model and a file named params.d must be in the same directory as
  the compiled application.
- An example params.d file can be found in example/sample_params.d.
+ An example params.d file can be found in test/params.d.
  In order to run, the model files must be named in the QuakeLib file parameters
  section of the file.
  Only a friction and geometry file are necessary.
@@ -4777,6 +5047,14 @@ reference "sec:Trace-File-Format"
 \end_inset
 
  for more information on the input fault model files and parameters.
+\end_layout
+
+\begin_layout Section
+Meshing Program
+\end_layout
+
+\begin_layout Standard
+Describe Eric's mesher.cpp
 \end_layout
 
 \begin_layout Section
