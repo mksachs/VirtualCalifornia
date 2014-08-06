@@ -1152,7 +1152,7 @@ namespace quakelib {
 				add_element(involved_elements[i]);
 		};
 		VectorList event_displacements(const VectorList &points, const float &lambda, const float &mu, const float &cutoff=DIST_SQRT_AREA_RATIO_CUTOFF_DISPLACEMENTS);
-		FloatList event_gravity_changes(const VectorList &points, const float &lambda, const float &mu, const float &cutoff=DIST_SQRT_AREA_RATIO_CUTOFF_GRAVITY);
+		FloatList event_gravity_changes(const VectorList &points, const float &lambda, const float &mu, const float &cutoff=DIST_SQRT_AREA_RATIO_CUTOFF_GRAVITY, bool free_air=true);
 		void set_event_center( const Vec<2> &new_center ) throw(std::invalid_argument) {_event_center = new_center;};
 		void set_event_radius( const double &new_radius ) throw(std::invalid_argument) {_event_radius = new_radius;};
 		double event_radius(void);

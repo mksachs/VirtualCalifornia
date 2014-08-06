@@ -2430,7 +2430,7 @@ double quakelib::Okada::Qp(double _R, double xi, double eta, double _q, double z
 }
 
 // gravity change on the free surface (z=0)
-double quakelib::Okada::calc_dg(Vec<2> location, double c, double dip, double L, double W, double US, double UD, double UT, double lambda, double mu) {
+double quakelib::Okada::calc_dg(Vec<2> location, double c, double dip, double L, double W, double US, double UD, double UT, double lambda, double mu, bool free_air) {
     OP_CMP(3); OP_MULT(3); OP_ADD(3); OP_SUB(1);
     // Evaluating delta_g at free surface so z=0
 
@@ -2474,7 +2474,11 @@ double quakelib::Okada::calc_dg(Vec<2> location, double c, double dip, double L,
 
     displace = calc_displacement_vector(Vec<3>(location[0], location[1], 0.0),c,dip,L,W,US,UD,UT,lambda,mu);
 
-    double dgFree = B*displace[2];
+    double dgFree = 0.0;
+
+    if (free_air) {
+        dgFree = B*displace[2];
+    } 
 
     return RHO*G*(dgS + dgD + dgT + dgC) - dgFree;
 }

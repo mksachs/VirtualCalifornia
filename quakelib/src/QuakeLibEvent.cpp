@@ -67,7 +67,7 @@ double quakelib::Event::event_radius(void) {
 	return _event_radius;
 };
 
-quakelib::FloatList quakelib::Event::event_gravity_changes(const VectorList &points, const float &lambda, const float &mu, const float &cutoff) {
+quakelib::FloatList quakelib::Event::event_gravity_changes(const VectorList &points, const float &lambda, const float &mu, const float &cutoff, bool free_air) {
 	quakelib::FloatList gravity_changes;
 	Okada block_okada;
     double gravity_change, slip, US, UD, UT, L, W, c, rake_cos, rake_sin, strike_cos, strike_sin, dip, strike, xp0, yp0, xp3, yp3, x, y, xp, yp;
@@ -131,7 +131,7 @@ quakelib::FloatList quakelib::Event::event_gravity_changes(const VectorList &poi
 				xp = (x-xp0) * strike_sin - (y-yp0) * strike_cos;
 				yp = (x-xp0) * strike_cos + (y-yp0) * strike_sin;
 				
-				gravity_change = block_okada.calc_dg(quakelib::Vec<2>(xp,yp), c, dip, L, W, US, UD, UT, lambda, mu);
+				gravity_change = block_okada.calc_dg(quakelib::Vec<2>(xp,yp), c, dip, L, W, US, UD, UT, lambda, mu, free_air);
 				
 				//dx =  displacement[0] * strike_sin + displacement[1] * strike_cos;
 				//dy = -displacement[0] * strike_cos + displacement[1] * strike_sin;

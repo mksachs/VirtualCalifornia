@@ -120,7 +120,7 @@ namespace quakelib {
 
 		// dg
 		//
-		double calc_dg(Vec<2> location, double c, double dip, double L, double W, double US, double UD, double UT, double lambda, double mu);
+		double calc_dg(Vec<2> location, double c, double dip, double L, double W, double US, double UD, double UT, double lambda, double mu, bool free_air);
 		double calc_dV(Vec<3> location, double c, double dip, double L, double W, double US, double UD, double UT, double lambda, double mu);
 
 	private:
