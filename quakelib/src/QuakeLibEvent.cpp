@@ -82,7 +82,10 @@ quakelib::FloatList quakelib::Event::event_gravity_changes(const VectorList &poi
     
 	for(EventElementList::size_type ele_id = 0; ele_id != involved_elements.size(); ele_id++) {
 		slip = involved_elements[ele_id].slip();
-		c = involved_elements[ele_id].max_depth();
+        
+        std::cout << "element: " << ele_id << "       slip: " << slip << std::endl;
+        
+		c = fabs(involved_elements[ele_id].max_depth());
 		rake_cos = cos(involved_elements[ele_id].rake());
 		rake_sin = sin(involved_elements[ele_id].rake());
 		if (fabs(rake_cos) < TRIG_TOLERANCE) {
@@ -97,7 +100,6 @@ quakelib::FloatList quakelib::Event::event_gravity_changes(const VectorList &poi
 		
 		L = (involved_elements[ele_id].vert(3) - involved_elements[ele_id].vert(0)).mag();
 		W = (involved_elements[ele_id].vert(3) - involved_elements[ele_id].vert(2)).mag();
-		c = fabs(involved_elements[ele_id].vert(1)[2]);
 		
 		dip = involved_elements[ele_id].dip();
 		strike = involved_elements[ele_id].strike();
@@ -172,7 +174,7 @@ quakelib::FloatList quakelib::Event::event_dilat_gravity_changes(const VectorLis
     
 	for(EventElementList::size_type ele_id = 0; ele_id != involved_elements.size(); ele_id++) {
 		slip = involved_elements[ele_id].slip();
-		c = involved_elements[ele_id].max_depth();
+		c = fabs(involved_elements[ele_id].max_depth());
 		rake_cos = cos(involved_elements[ele_id].rake());
 		rake_sin = sin(involved_elements[ele_id].rake());
 		if (fabs(rake_cos) < TRIG_TOLERANCE) {
@@ -187,7 +189,6 @@ quakelib::FloatList quakelib::Event::event_dilat_gravity_changes(const VectorLis
 		
 		L = (involved_elements[ele_id].vert(3) - involved_elements[ele_id].vert(0)).mag();
 		W = (involved_elements[ele_id].vert(3) - involved_elements[ele_id].vert(2)).mag();
-		c = fabs(involved_elements[ele_id].vert(1)[2]);
 		
 		dip = involved_elements[ele_id].dip();
 		strike = involved_elements[ele_id].strike();
